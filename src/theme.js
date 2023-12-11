@@ -1,13 +1,13 @@
-const H1 = `
+const h1 = `
   font-size: 4rem;
   font-weight: 400;
 `;
-const H2 = `
+const h2 = `
   font-size: 3.2rem;
   font-weight: 400;
   line-height: 4rem;
 `;
-const H3 = `
+const h3 = `
   font-size: 2.4rem;
   font-weight: 400;
   line-height: 3rem;
@@ -45,9 +45,9 @@ const caption1Bold = `
 `;
 
 const theme = {
-  H1,
-  H2,
-  H3,
+  h1,
+  h2,
+  h3,
   body1Regular,
   body2Regular,
   body3Regular,
