@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-const StyledButton = styled.div`
+const StyledButton = styled.button`
+  border: 0;
+  outline: 0;
   cursor: pointer;
   // layout
   display: flex;
