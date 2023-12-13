@@ -8,9 +8,9 @@ const Container = styled.div`
   margin-bottom: ${props => props.marginBottom};
 `;
 
-function Header({ marginBottom }) {
+function Header({ $marginBottom }) {
   return (
-    <Container marginBottom={marginBottom}>
+    <Container marginBottom={$marginBottom}>
       <UserProfile />
     </Container>
   );

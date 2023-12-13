@@ -7,14 +7,13 @@ const Container = styled.div`
 
   img {
     width: 100%;
-    height: 100%;
     border-radius: 136px;
   }
 `;
 
-function UserProfileImg({ src, alt, size, margin }) {
+function UserProfileImg({ src, alt, size, $margin }) {
   return (
-    <Container size={size} margin={margin}>
+    <Container size={size} margin={$margin}>
       <img src={src} alt={alt} />
     </Container>
   );
