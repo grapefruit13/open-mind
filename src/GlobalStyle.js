@@ -35,6 +35,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
     font-feature-settings: 'clig' off, 'liga' off;
     margin: 0;
+    background: var(--grayscale-20, #F9F9F9);
   };
     
   a {
