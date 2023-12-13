@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import Person from '../assets/svgComponents/Person';
+import Person from '../../assets/svgComponents/Person';
 
 const Div = styled.div`
   display: flex;
