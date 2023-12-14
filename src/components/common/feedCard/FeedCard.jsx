@@ -3,6 +3,8 @@ import QuestionSection from './QuestionSection';
 import AnswerStatusKebab from './AnswerStatusKebab';
 import AnswerSection from './AnswerSection';
 import Devider from './Devider';
+import ReactionButtons from '../ReactionButtons';
+import EditContentsButton from '../../answer/EditContentsButton';
 
 const Container = styled.div`
   display: flex;
@@ -22,7 +24,8 @@ export default function FeedCard() {
       <QuestionSection />
       <AnswerSection />
       <Devider />
-      <div>좋아요</div>
+      <ReactionButtons />
+      <EditContentsButton />
     </Container>
   );
 }

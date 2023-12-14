@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Badge from '../Badge';
 import More from '../../../assets/svgComponents/More';
 
 const Container = styled.div`
@@ -11,7 +12,7 @@ const Container = styled.div`
 export default function AnswerStatusKebab() {
   return (
     <Container>
-      <div>Badge</div>
+      <Badge badgeText="답변 완료" />
       <More />
     </Container>
   );

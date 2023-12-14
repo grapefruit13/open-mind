@@ -32,10 +32,14 @@ const content =
 export default function AnswerSection() {
   return (
     <Container>
-      <UserProfileImg size="48" alt="userProfile" />
+      <UserProfileImg
+        src="/assets/sampleProfile.png"
+        alt="userProfileImg"
+        size="4.8rem"
+      />
       <FlexColumn>
         <FlexRow>
-          <UserName userName="아초는 고양이" size="18" />
+          <UserName userName="아초는고양이" size="1.8rem" />
           <DatesAgo text="2주전" />
         </FlexRow>
         <AnswerContent content={content} />
