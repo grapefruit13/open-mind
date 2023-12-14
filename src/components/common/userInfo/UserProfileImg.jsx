@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Container = styled.div`
   width: ${props => props.size};
   height: auto;
-  margin: ${props => props.margin || '0'};
+  margin: ${props => props.$margin || '0'};
 
   img {
     width: 100%;
@@ -13,7 +13,7 @@ const Container = styled.div`
 
 function UserProfileImg({ src, alt, size, $margin }) {
   return (
-    <Container size={size} margin={$margin}>
+    <Container size={size} $margin={$margin}>
       <img src={src} alt={alt} />
     </Container>
   );

@@ -5,15 +5,13 @@ const Container = styled.div`
   background: url('/assets/talk.png') no-repeat center center;
   background-size: cover;
   height: 23.4rem;
-  margin-bottom: ${props => props.marginBottom};
+  margin-bottom: ${props => props.$marginBottom};
 `;
 
-function Header({ $marginBottom }) {
+export default function Header({ $marginBottom }) {
   return (
-    <Container marginBottom={$marginBottom}>
+    <Container $marginBottom={$marginBottom}>
       <UserProfile />
     </Container>
   );
 }
-
-export default Header;
