@@ -5,6 +5,7 @@ const StyledButton = styled.button`
   outline: 0;
   cursor: pointer;
   // layout
+  float: right;
   display: flex;
   justify-content: center;
   align-items: center;
