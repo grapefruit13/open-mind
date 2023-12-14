@@ -33,14 +33,14 @@ const StyledButton = styled.button`
   // xsmall -> 70 / 25 / 10 / 0 0
 
   ${props =>
-    props.large &&
+    props.$large &&
     css`
       width: 20.8rem;
       padding: 0;
     `}
 
   ${props =>
-    props.small &&
+    props.$small &&
     css`
       width: 10rem;
       height: 3.5rem;
@@ -49,7 +49,7 @@ const StyledButton = styled.button`
     `}
 
     ${props =>
-    props.xsmall &&
+    props.$xsmall &&
     css`
       width: 7rem;
       height: 2.5rem;
@@ -60,7 +60,7 @@ const StyledButton = styled.button`
 
 function ButtonFloating({ children, large, small, xsmall }) {
   return (
-    <StyledButton large={large} small={small} xsmall={xsmall}>
+    <StyledButton $large={large} $small={small} $xsmall={xsmall}>
       {children}
     </StyledButton>
   );
