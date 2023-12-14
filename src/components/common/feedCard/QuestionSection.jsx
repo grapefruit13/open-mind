@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import DatesAgo from './DatesAgo';
 import QuestionText from './QuestionText';
 
-const QuestionSectionWrapper = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -11,9 +11,9 @@ const QuestionSectionWrapper = styled.div`
 
 export default function QuestionSection() {
   return (
-    <QuestionSectionWrapper>
+    <Container>
       <DatesAgo text="질문 · 2주전" />
       <QuestionText text="좋아하는 동물은???" />
-    </QuestionSectionWrapper>
+    </Container>
   );
 }
