@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const StyledButton = styled.button`
   border: 0;
@@ -9,7 +9,6 @@ const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20.8rem;
   height: 5.4rem;
   padding: 1.2rem 2.4rem;
   gap: 8px;
@@ -26,10 +25,45 @@ const StyledButton = styled.button`
   font-style: normal;
   font-weight: 400;
   line-height: 2.5rem;
+
+  // width, heigth, font-size, padding
+  // large -> 208 / 54 / 20 / 12 24
+  // default ->  x / 54 / 20 / 12 24
+  // small -> 100 / 35 / 15 / 0 0
+  // xsmall -> 70 / 25 / 10 / 0 0
+
+  ${props =>
+    props.large &&
+    css`
+      width: 20.8rem;
+      padding: 0;
+    `}
+
+  ${props =>
+    props.small &&
+    css`
+      width: 10rem;
+      height: 3.5rem;
+      font-size: 1.5rem;
+      padding: 0;
+    `}
+
+    ${props =>
+    props.xsmall &&
+    css`
+      width: 7rem;
+      height: 2.5rem;
+      font-size: 1rem;
+      padding: 0;
+    `}
 `;
 
-function ButtonFloating({ children }) {
-  return <StyledButton>{children}</StyledButton>;
+function ButtonFloating({ children, large, small, xsmall }) {
+  return (
+    <StyledButton large={large} small={small} xsmall={xsmall}>
+      {children}
+    </StyledButton>
+  );
 }
 
 export default ButtonFloating;
