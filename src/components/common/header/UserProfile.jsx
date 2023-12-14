@@ -21,9 +21,9 @@ function UserProfile() {
         src={userProfileImgSrc}
         size="13.6rem"
         alt="userProfileImage"
-        margin="1.2rem auto"
+        $margin="1.2rem auto"
       />
-      <UserName userName="아초는고양이" size="32" />
+      <UserName userName="아초는고양이" size="3.2rem" />
       <ButtonShare />
     </Container>
   );
