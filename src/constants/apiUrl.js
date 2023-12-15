@@ -1,6 +1,6 @@
-const baseUrl = 'https://openmind-api.vercel.app/2-2';
-const answerUrl = `${baseUrl}/answers`;
-const questionsUrl = `${baseUrl}/questions`;
-const subjectUrl = `${baseUrl}/subjects`;
+const BASE_URL = 'https://openmind-api.vercel.app/2-2';
+const ANSWER_URL = '/answers/';
+const QUESTION_URL = '/questions/';
+const SUBJECT_URL = '/subjects/';
 
-export default { baseUrl, answerUrl, questionsUrl, subjectUrl };
+export { BASE_URL, ANSWER_URL, QUESTION_URL, SUBJECT_URL };
