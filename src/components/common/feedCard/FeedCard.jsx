@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import styled from 'styled-components';
 import QuestionSection from './QuestionSection';
 import AnswerStatusKebab from './AnswerStatusKebab';
@@ -18,15 +17,8 @@ const Container = styled.div`
 `;
 
 export default function FeedCard() {
-  // const [isKebabCliked, setIsKebabClicked] = useState(false);
-
-  // const onClickInput = state => {
-  //   setIsKebabClicked(state);
-  // };
-
   return (
     <Container>
-      {/* <AnswerStatusKebab page="answer" onClickInput={onClickInput} /> */}
       <AnswerStatusKebab page="answer" />
       <QuestionSection />
       <AnswerSection page="answer" />

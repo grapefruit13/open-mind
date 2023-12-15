@@ -1,9 +1,9 @@
-export default function Message({ width }) {
+export default function Message({ size }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={width}
-      height="auto"
+      width={size}
+      height={size}
       viewBox="0 0 18 18"
       fill="none"
     >

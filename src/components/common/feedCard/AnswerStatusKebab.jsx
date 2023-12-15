@@ -2,7 +2,6 @@
 import styled from 'styled-components';
 import Badge from '../Badge';
 import More from '../../../assets/svgComponents/More';
-import Badge from '../Badge';
 
 const Container = styled.div`
   display: flex;
