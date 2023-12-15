@@ -31,7 +31,7 @@ export default function FeedCardContainer() {
   return (
     <Container>
       <CountQuestion>
-        <Message width="24px" />
+        <Message size="24px" />
         <span>3개의 질문이 있습니다.</span>
       </CountQuestion>
       <FeedCard />

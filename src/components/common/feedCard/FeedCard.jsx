@@ -3,6 +3,8 @@ import QuestionSection from './QuestionSection';
 import AnswerStatusKebab from './AnswerStatusKebab';
 import AnswerSection from './AnswerSection';
 import Devider from './Devider';
+import ReactionButtons from '../ReactionButtons';
+import EditContentsButton from '../../answer/EditContentsButton';
 
 const Container = styled.div`
   display: flex;
@@ -13,17 +15,17 @@ const Container = styled.div`
   border-radius: 16px;
   background: var(--grayscale-10);
   box-shadow: var(--shadow-1pt);
-  position: relative;
 `;
 
 export default function FeedCard() {
   return (
     <Container>
-      <AnswerStatusKebab page="answer" />
+      <AnswerStatusKebab />
       <QuestionSection />
-      <AnswerSection page="answer" />
+      <AnswerSection />
       <Devider />
-      <div>좋아요</div>
+      <ReactionButtons />
+      <EditContentsButton />
     </Container>
   );
 }
