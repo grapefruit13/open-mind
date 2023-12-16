@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import QuestionSection from './QuestionSection';
 import AnswerStatusKebab from './AnswerStatusKebab';
 import AnswerSection from './AnswerSection';
 import Devider from './Devider';
 import ReactionButtons from '../ReactionButtons';
-import EditContentsButton from '../../answer/EditContentsButton';
+// import EditContentsButton from '../../answer/EditContentsButton';
 
 const Container = styled.div`
   display: flex;
@@ -18,15 +19,21 @@ const Container = styled.div`
 `;
 
 export default function FeedCard({ question, user }) {
-  // console.log(question);
+  const { pathname } = useLocation();
+  const path = pathname.split('/')[3];
+
   return (
     <Container>
-      <AnswerStatusKebab answer={question.answer} />
+      <AnswerStatusKebab answer={question.answer} path={path} />
       <QuestionSection questionContent={question.content} />
-      <AnswerSection answer={question.answer} user={user} />
+      {path !== 'answer' && !question.answer ? (
+        ''
+      ) : (
+        <AnswerSection answer={question.answer} user={user} path={path} />
+      )}
       <Devider />
       <ReactionButtons like={question.like} dislike={question.dislike} />
-      <EditContentsButton />
+      {/* <EditContentsButton /> */}
     </Container>
   );
 }
