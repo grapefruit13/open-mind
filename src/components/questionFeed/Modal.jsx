@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import Message from '../../assets/svgComponents/Message';
 import CloseSvg from '../../assets/svgComponents/CloseSvg';
@@ -5,10 +6,19 @@ import sampleProfile from '../../../public/assets/sampleProfile.png';
 import InputTextarea from '../common/InputTextarea';
 import ButtonBox from '../common/button/ButtonBox';
 
+const StyleModal = styled.div`
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+`;
+
 const StyledPopup = styled.div`
   display: flex;
   flex-direction: column;
-  position: fixed;
+  position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -97,29 +107,64 @@ const InputTextareaWrapper = styled.div`
 `;
 
 function Modal() {
+  const [modalVisible, setModalVisible] = useState(true);
+  const userNameData = '아초는 고양이';
+  const handleClose = () => {
+    setModalVisible(false);
+  };
+
+  const handleQuestionSubmit = async () => {
+    try {
+      const response = await fetch('/api/questions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userName: userNameData,
+          // Add other question data as needed
+        }),
+      });
+
+      if (response.ok) {
+        // Handle success
+        console.log('Question submitted successfully');
+      } else {
+        // Handle error
+        console.error('Failed to submit question');
+      }
+    } catch (error) {
+      console.error('Error submitting question:', error);
+    }
+  };
+
   return (
-    <StyledPopup>
-      <PopupHeader>
-        <Left>
-          <Message width={28} />
-          <p>질문을 작성하세요</p>
-        </Left>
-        <CloseBtn>
-          <CloseSvg />
-        </CloseBtn>
-      </PopupHeader>
-      <RecipientContainer>
-        <span className="sender">To.</span>
-        <ProfileWrapper>
-          <ProfileImage src={sampleProfile} alt="profile" />
-        </ProfileWrapper>
-        <span className="userName">{}</span>
-      </RecipientContainer>
-      <InputTextareaWrapper>
-        <InputTextarea />
-      </InputTextareaWrapper>
-      <ButtonBox disabled>질문 보내기</ButtonBox>
-    </StyledPopup>
+    <StyleModal style={{ display: modalVisible ? 'block' : 'none' }}>
+      <StyledPopup>
+        <PopupHeader>
+          <Left>
+            <Message width={28} />
+            <p>질문을 작성하세요</p>
+          </Left>
+          <CloseBtn onClick={handleClose}>
+            <CloseSvg />
+          </CloseBtn>
+        </PopupHeader>
+        <RecipientContainer>
+          <span className="sender">To.</span>
+          <ProfileWrapper>
+            <ProfileImage src={sampleProfile} alt="profile" />
+          </ProfileWrapper>
+          <span className="userName">{userNameData}</span>
+        </RecipientContainer>
+        <InputTextareaWrapper>
+          <InputTextarea />
+        </InputTextareaWrapper>
+        <ButtonBox disabled onClick={handleQuestionSubmit}>
+          질문 보내기
+        </ButtonBox>
+      </StyledPopup>
+    </StyleModal>
   );
 }
 
