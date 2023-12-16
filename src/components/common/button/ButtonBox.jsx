@@ -42,7 +42,7 @@ const StyledButton = styled.button`
   }
 
   ${props =>
-    props.outline &&
+    props.$outline &&
     css`
       border: 1px solid var(--brown-40, #542f1a);
       background: var(--brown-10, #f5f1ee);
@@ -66,7 +66,7 @@ const StyledButton = styled.button`
     `}
 
   ${props =>
-    props.small &&
+    props.$small &&
     css`
       padding: 8px 12px;
       gap: 4px;
@@ -79,7 +79,7 @@ const StyledButton = styled.button`
 
 function ButtonBox({ children, disabled, outline, small }) {
   return (
-    <StyledButton disabled={disabled} outline={outline} small={small}>
+    <StyledButton disabled={disabled} $outline={outline} $small={small}>
       {children}
     </StyledButton>
   );

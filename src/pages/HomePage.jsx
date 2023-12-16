@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-function HomePage() {
-  return <div>HomePage</div>;
-}
-
-export default HomePage;
-=======
 import styled from 'styled-components';
 import logo from '../../public/assets/logo.svg';
 import ButtonBox from '../components/common/button/ButtonBox';
@@ -57,7 +50,7 @@ export default function HomePage() {
   return (
     <Wrapper>
       <ButtonWrapper>
-        <ButtonBox outline="outline">
+        <ButtonBox outline>
           답변하러 가기
           <ArrowRight />
         </ButtonBox>
@@ -70,4 +63,3 @@ export default function HomePage() {
     </Wrapper>
   );
 }
->>>>>>> 5e745e2 (InputText,Modal,Homepage변경사항)
