@@ -8,10 +8,10 @@ const Container = styled.div`
   margin-bottom: ${props => props.$marginBottom};
 `;
 
-export default function Header({ marginBottom }) {
+export default function Header({ marginBottom, userName, userProfileImg }) {
   return (
     <Container $marginBottom={marginBottom}>
-      <UserProfile />
+      <UserProfile userName={userName} userProfileImg={userProfileImg} />
     </Container>
   );
 }

@@ -1,6 +1,9 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FeedCard from './FeedCard';
 import Message from '../../../assets/svgComponents/Message';
+import { getQuestionsData } from '../../../utils/api';
+import { SUBJECT_URL } from '../../../constants/apiUrl';
 
 const Container = styled.div`
   display: inline-flex;
@@ -27,16 +30,46 @@ const CountQuestion = styled.div`
   line-height: 2.5rem;
 `;
 
-export default function FeedCardContainer() {
+export default function FeedCardContainer({ user }) {
+  const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    const getQuestions = async () => {
+      const questionsData = await getQuestionsData(
+        `${SUBJECT_URL}1455/questions/`,
+      );
+      setQuestions([...questionsData.results]);
+    };
+    getQuestions();
+  }, []);
+
+  // useEffect(() => {
+  //   console.log(questions);
+  // }, [questions]);
+
   return (
     <Container>
-      <CountQuestion>
-        <Message size="24px" />
-        <span>3개의 질문이 있습니다.</span>
-      </CountQuestion>
-      <FeedCard />
-      <FeedCard />
-      <FeedCard />
+      {questions.length > 0 ? (
+        <>
+          <CountQuestion>
+            <Message size="24px" />
+            <span>{questions.length}개의 질문이 있습니다.</span>
+          </CountQuestion>
+          {questions.map(question => {
+            return (
+              <FeedCard key={question.id} question={question} user={user} />
+            );
+          })}
+        </>
+      ) : (
+        <>
+          <CountQuestion>
+            <Message size="24px" />
+            <span>아직 질문이 없습니다.</span>
+          </CountQuestion>
+          <div>empty box</div>
+        </>
+      )}
     </Container>
   );
 }

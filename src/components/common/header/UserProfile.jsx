@@ -11,19 +11,17 @@ const Container = styled.div`
   padding-top: 5rem;
 `;
 
-function UserProfile() {
-  const userProfileImgSrc = '/assets/sampleProfile.png';
-
+function UserProfile({ userName, userProfileImg }) {
   return (
     <Container>
       <Logo />
       <UserProfileImg
-        src={userProfileImgSrc}
+        src={userProfileImg}
         size="13.6rem"
         alt="userProfileImage"
         $margin="1.2rem auto"
       />
-      <UserName userName="아초는고양이" size="3.2rem" />
+      <UserName userName={userName} size="3.2rem" />
       <ButtonShare />
     </Container>
   );

@@ -17,14 +17,15 @@ const Container = styled.div`
   box-shadow: var(--shadow-1pt);
 `;
 
-export default function FeedCard() {
+export default function FeedCard({ question, user }) {
+  // console.log(question);
   return (
     <Container>
-      <AnswerStatusKebab />
-      <QuestionSection />
-      <AnswerSection />
+      <AnswerStatusKebab answer={question.answer} />
+      <QuestionSection questionContent={question.content} />
+      <AnswerSection answer={question.answer} user={user} />
       <Devider />
-      <ReactionButtons />
+      <ReactionButtons like={question.like} dislike={question.dislike} />
       <EditContentsButton />
     </Container>
   );

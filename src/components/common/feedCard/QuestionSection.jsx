@@ -9,11 +9,11 @@ const Container = styled.div`
   gap: 0.4rem;
 `;
 
-export default function QuestionSection() {
+export default function QuestionSection({ questionContent }) {
   return (
     <Container>
       <DatesAgo text="질문 · 2주전" />
-      <QuestionText text="좋아하는 동물은???" />
+      <QuestionText text={questionContent} />
     </Container>
   );
 }

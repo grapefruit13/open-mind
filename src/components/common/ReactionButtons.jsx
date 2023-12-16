@@ -45,7 +45,7 @@ const DislikeButton = styled(ReactButton)`
 
 const Counter = styled.div``;
 
-function ReactionButtons() {
+function ReactionButtons({ like, dislike }) {
   const [isLike, setIsLike] = useState(false);
   const [isDislike, setIsDislike] = useState(false);
 
@@ -64,12 +64,12 @@ function ReactionButtons() {
       <LikeButton $isLike={isLike} onClick={onClickLikeButton}>
         <LikeIcon />
         <p>좋아요</p>
-        <Counter>1</Counter>
+        <Counter>{like}</Counter>
       </LikeButton>
       <DislikeButton $isDislike={isDislike} onClick={onClickDislikeButton}>
         <DislikeIcon />
         <p>싫어요</p>
-        <Counter>1</Counter>
+        <Counter>{dislike}</Counter>
       </DislikeButton>
     </Container>
   );

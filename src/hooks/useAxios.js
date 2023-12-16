@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import axios from "axios";
+import axios from 'axios';
 //외부에서 path, data method, trigger 호출할 때 method, path, data 변경할 수 있도록.
 //옵션으로 shouldfetch
 
@@ -14,17 +14,20 @@ const defaultInstance = axios.create({
 });
 
 defaultInstance.interceptors.response.use(
-  (response) => {
-    	console.log("axios config : ", response);
+  response => {
+    console.log('axios config : ', response);
     return response;
   },
-  (error) => {
-    	console.log("axios config : ", error);
+  error => {
+    console.log('axios config : ', error);
     return Promise.reject(error);
-  }
+  },
 );
 
-const useAxios = ({ path = '', method = 'GET', data = {} }, shouldFetch = true) => {
+const useAxios = (
+  { path = '', method = 'GET', data = {} },
+  shouldFetch = true,
+) => {
   const [state, setState] = useState({
     loading: true,
     error: null,
@@ -41,17 +44,15 @@ const useAxios = ({ path = '', method = 'GET', data = {} }, shouldFetch = true) 
         data,
       });
 
-      setState((state) => ({
+      setState(state => ({
         ...state,
         loading: false,
         data: response.data.results,
       }));
       console.log(`resolve됨${state.data}`);
-      console.dir(response.data?.results[0])
-      
+      console.dir(response.data?.results[0]);
     } catch (error) {
-
-      setState((state) => ({
+      setState(state => ({
         ...state,
         loading: false,
         error,
@@ -71,8 +72,12 @@ const useAxios = ({ path = '', method = 'GET', data = {} }, shouldFetch = true) 
     }
   }, [shouldFetch, trigger]);
 
-  const refetch = ({ newPath = path, newMethod = method, newData = data} = {}) => {
-    setState((state) => ({
+  const refetch = ({
+    newPath = path,
+    newMethod = method,
+    newData = data,
+  } = {}) => {
+    setState(state => ({
       ...state,
       loading: true,
     }));
@@ -91,16 +96,16 @@ export default useAxios;
 
 // function HomePage() {
 //   const { data, loading, error, refetch } = useAxios({
-//     path: '/subjects/', 
-//     method: 'GET', 
-//     data: {}, 
+//     path: '/subjects/',
+//     method: 'GET',
+//     data: {},
 //   });
 
 //   // refetch 함수를 호출할 때 새로운 path, method, data를 전달하여 요청을 보낼 수 있습니다.
 //   const handleRefetch = () => {
 //     refetch({
 //       path: '/subjects/',
-//       method: 'POST', 
+//       method: 'POST',
 //       data: { name: '강영훈', team: '2-2' }, // 변경된 data
 //     });
 //   };
