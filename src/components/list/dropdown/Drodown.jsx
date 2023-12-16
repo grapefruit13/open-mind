@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DropdownSelected from './DropDownSelected';
 import DropdownElement from './DropdownElement ';
@@ -28,7 +28,7 @@ const Position = styled.div`
   position: relative;
 `;
 
-function Dropdown() {
+function Dropdown({ setSelectedMenuState }) {
   const [view, setView] = useState(false);
   const [dropDownState, setDropDownState] = useState('이름순');
 
@@ -40,22 +40,27 @@ function Dropdown() {
     setView(false);
   };
 
-  const clickRecently = () => {
-    setDropDownState('최신순');
-    setView(false);
+  const sortBy = text => {
+    return () => {
+      setDropDownState(text);
+      setView(false);
+    };
   };
 
-  const clickAlphabetical = () => {
-    setDropDownState('이름순');
-    setView(false);
-  };
+  useEffect(() => {
+    if (dropDownState === '이름순') {
+      setSelectedMenuState('이름순');
+    } else {
+      setSelectedMenuState('최신순');
+    }
+  }, [dropDownState, setSelectedMenuState]);
 
   return (
     <Position>
       <Div
         onClick={handleViewSelect}
         onBlur={handleBlurContainer}
-        onKeyDown={clickAlphabetical}
+        onKeyDown={handleViewSelect}
         role="presentation"
       >
         <DropdownSelected
@@ -67,18 +72,18 @@ function Dropdown() {
       {view && (
         <DropdownMenu>
           <span
-            onClick={clickAlphabetical}
-            onKeyDown={clickAlphabetical}
+            onClick={sortBy('이름순')}
+            onKeyDown={sortBy('이름순')}
             role="presentation"
           >
-            <DropdownElement dropDownState={dropDownState} element="이름순" />
+            <DropdownElement $dropDownState={dropDownState} $element="이름순" />
           </span>
           <span
-            onClick={clickRecently}
-            onKeyDown={clickAlphabetical}
+            onClick={sortBy('최신순')}
+            onKeyDown={sortBy('최신순')}
             role="presentation"
           >
-            <DropdownElement dropDownState={dropDownState} element="최신순" />
+            <DropdownElement $dropDownState={dropDownState} $element="최신순" />
           </span>
         </DropdownMenu>
       )}

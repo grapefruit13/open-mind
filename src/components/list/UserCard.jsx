@@ -26,14 +26,14 @@ const StyledUserCard = styled.div`
   .received-questions-container {
     display: flex;
     height: 2.2rem;
-    margin-top: 2.8rem;==
+    margin-top: 2.8rem;
     align-items: center;
     color: var(--grayscale-40);
 
     img {
       display: block;
-      width: 1.8rem; /* Adjust the width as needed */
-      height: 1.8rem; /* Adjust the height as needed */
+      width: 1.8rem;
+      height: 1.8rem;
       margin-right: 0.4rem;
     }
     p {

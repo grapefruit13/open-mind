@@ -16,10 +16,10 @@ const StyledElement = styled.p`
     dropDownState === element ? selectedStyle : ''}
 `;
 
-function DropdownElement({ dropDownState, element }) {
+function DropdownElement({ $dropDownState, $element }) {
   return (
-    <StyledElement dropDownState={dropDownState} element={element}>
-      {element}
+    <StyledElement dropDownState={$dropDownState} element={$element}>
+      {$element}
     </StyledElement>
   );
 }
