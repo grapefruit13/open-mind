@@ -1,26 +1,48 @@
-import { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
-//외부에서 path, data method, trigger 호출할 때 method, path, data 변경할 수 있도록.
-//옵션으로 shouldfetch
+import { useState, useEffect } from 'react';
+import axios, { HttpStatusCode, isAxiosError } from 'axios';
+// 외부에서 path, data method, trigger 호출할 때 method, path, data 변경할 수 있도록.
+// 옵션으로 shouldfetch
 
 const defaultInstance = axios.create({
   baseURL: 'https://openmind-api.vercel.app/2-2/',
   timeout: 6000,
-  headers: {
-    common: {
-      'Content-Type': 'application/json',
-    },
-  },
 });
 
-defaultInstance.interceptors.response.use(
-  response => {
-    console.log('axios config : ', response);
-    return response;
+defaultInstance.interceptors.request.use(
+  req => {
+    console.log('axios request config : ', req);
+    if (req.data && req.data instanceof Object) {
+      req.headers['Content-Type'] = 'application/json';
+    }
+    return req;
   },
-  error => {
-    console.log('axios config : ', error);
-    return Promise.reject(error);
+  err => {
+    console.log('axios config : ', err);
+    if (isAxiosError(err)) {
+      if (err.status === HttpStatusCode.BadRequest) {
+        throw new Error('400 Badrequest');
+      }
+      if (err.status === HttpStatusCode.NotFound) {
+        throw new Error('404 NotFound');
+      }
+    }
+    return Promise.reject(err);
+  },
+);
+
+defaultInstance.interceptors.response.use(
+  res => {
+    console.log('axios response config : ', res);
+    return res;
+  },
+  err => {
+    console.log('axios config : ', err);
+    if (isAxiosError(err)) {
+      if (err.status === HttpStatusCode.InternalServerError) {
+        throw Error('서버 이상');
+      }
+    }
+    return Promise.reject(err);
   },
 );
 
@@ -34,62 +56,44 @@ const useAxios = (
     data: null,
   });
 
-  const [trigger, setTrigger] = useState(0);
-
-  const fetchData = async () => {
-    try {
-      const response = await defaultInstance({
-        method,
-        url: path,
-        data,
-      });
-
-      setState(state => ({
-        ...state,
-        loading: false,
-        data: response.data.results,
-      }));
-      console.log(`resolve됨${state.data}`);
-      console.dir(response.data?.results[0]);
-    } catch (error) {
-      setState(state => ({
-        ...state,
-        loading: false,
-        error,
-      }));
-
-      console.log(`reject됨${state.error}`);
-    }
-  };
-
-  const triggerFetch = useCallback(() => {
-    fetchData();
-  }, [path, method, data]);
-
-  useEffect(() => {
-    if (shouldFetch) {
-      triggerFetch();
-    }
-  }, [shouldFetch, trigger]);
-
-  const refetch = ({
+  const fetchData = async ({
     newPath = path,
     newMethod = method,
     newData = data,
   } = {}) => {
-    setState(state => ({
-      ...state,
-      loading: true,
-    }));
-    setTrigger(() => Date.now());
-    fetchData({
-      path: newPath,
-      method: newMethod,
-      data: newData,
-    });
+    try {
+      setState(prev => ({
+        ...prev,
+        loading: true,
+      }));
+
+      const response = await defaultInstance({
+        method: newMethod,
+        url: newPath,
+        data: newData,
+      });
+
+      setState(prev => ({
+        ...prev,
+        loading: false,
+        data: response.data,
+      }));
+    } catch (error) {
+      setState(prev => ({
+        ...prev,
+        loading: false,
+        error,
+      }));
+    }
   };
 
-  return { ...state, refetch };
+  useEffect(() => {
+    if (shouldFetch) {
+      fetchData();
+    }
+  }, []);
+
+  return { ...state, fetchData };
 };
 
 export default useAxios;
@@ -101,12 +105,11 @@ export default useAxios;
 //     data: {},
 //   });
 
-//   // refetch 함수를 호출할 때 새로운 path, method, data를 전달하여 요청을 보낼 수 있습니다.
 //   const handleRefetch = () => {
 //     refetch({
 //       path: '/subjects/',
 //       method: 'POST',
-//       data: { name: '강영훈', team: '2-2' }, // 변경된 data
+//       data: { name: '강영훈', team: '2-2' }, //
 //     });
 //   };
 //   console.dir(data)
