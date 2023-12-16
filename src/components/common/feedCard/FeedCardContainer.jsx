@@ -4,6 +4,7 @@ import FeedCard from './FeedCard';
 import Message from '../../../assets/svgComponents/Message';
 import { getQuestionsData } from '../../../utils/api';
 import { SUBJECT_URL } from '../../../constants/apiUrl';
+import NoQuestionBox from '../../questionFeed/NoQuestionBox';
 
 const Container = styled.div`
   display: inline-flex;
@@ -47,29 +48,17 @@ export default function FeedCardContainer({ user }) {
   //   console.log(questions);
   // }, [questions]);
 
-  return (
+  return questions.length > 0 ? (
     <Container>
-      {questions.length > 0 ? (
-        <>
-          <CountQuestion>
-            <Message size="24px" />
-            <span>{questions.length}개의 질문이 있습니다.</span>
-          </CountQuestion>
-          {questions.map(question => {
-            return (
-              <FeedCard key={question.id} question={question} user={user} />
-            );
-          })}
-        </>
-      ) : (
-        <>
-          <CountQuestion>
-            <Message size="24px" />
-            <span>아직 질문이 없습니다.</span>
-          </CountQuestion>
-          <div>empty box</div>
-        </>
-      )}
+      <CountQuestion>
+        <Message size="2.4rem" />
+        <span>{questions.length}개의 질문이 있습니다.</span>
+      </CountQuestion>
+      {questions.map(question => {
+        return <FeedCard key={question.id} question={question} user={user} />;
+      })}
     </Container>
+  ) : (
+    <NoQuestionBox />
   );
 }
