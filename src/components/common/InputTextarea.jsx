@@ -1,11 +1,11 @@
-import styled from 'styled-components';
 import { useState } from 'react';
+import styled from 'styled-components';
 
 const Div = styled.div`
   display: flex;
-  width: 33.6rem;
-  height: 14rem;
+  height: ${props => props.height};
   padding: 1.6rem;
+  margin-bottom: ${props => props.marginbottom};
   justify-content: center;
   align-items: flex-start;
   gap: 1rem;
@@ -13,6 +13,7 @@ const Div = styled.div`
 
   border-radius: 8px;
   background: var(--grayscale-20);
+
   &:focus-within {
     border: 1px solid var(--brown-40);
   }
@@ -32,22 +33,38 @@ const Textarea = styled.textarea`
   }
 `;
 
-function InputTextarea() {
-  const [value, setValue] = useState('');
-  const hanleChange = e => {
-    setValue(() => e.target.value);
+export default function InputTextarea({
+  height,
+  marginbottom,
+  type,
+  onChangeInput,
+}) {
+  const [inputState, setInputState] = useState({
+    value: '',
+    hasValue: false,
+  });
+
+  const handleInputChange = e => {
+    setInputState(prev => ({ ...prev, value: e.target.value, hasValue: true }));
+    onChangeInput({ value: e.target.value, hasValue: true });
+  };
+
+  const handleInputKeyDown = e => {
+    if (e.key === 'Backspace' && !e.target.value) {
+      setInputState(prev => ({ ...prev, hasValue: false }));
+      onChangeInput({ hasValue: false });
+    }
   };
 
   return (
-    <Div>
+    <Div height={height} marginbottom={marginbottom}>
       <Textarea
         type="text"
-        placeholder="이름을 입력해주세요"
-        value={value}
-        onChange={hanleChange}
+        placeholder={`${type}을 입력해주세요`}
+        value={inputState.value}
+        onChange={handleInputChange}
+        onKeyDown={handleInputKeyDown}
       />
     </Div>
   );
 }
-
-export default InputTextarea;

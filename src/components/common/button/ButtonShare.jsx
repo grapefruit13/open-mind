@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import LinkIcon from '../../assets/svgComponents/LinkIcon';
-import KakaoIcon from '../../assets/svgComponents/KakaoIcon';
-import FacebookIcon from '../../assets/svgComponents/FacebookIcon';
+import LinkIcon from '../../../assets/svgComponents/LinkIcon';
+import KakaoIcon from '../../../assets/svgComponents/KakaoIcon';
+import FacebookIcon from '../../../assets/svgComponents/FacebookIcon';
 
 const Continaer = styled.div`
   cursor: pointer;

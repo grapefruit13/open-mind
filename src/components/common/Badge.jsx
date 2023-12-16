@@ -7,7 +7,7 @@ const StyledBadge = styled.div`
   background: var(--grayscale-10);
 
   ${props =>
-    props.badgeText === '답변 완료' &&
+    props.$badgeText === '답변 완료' &&
     ` 
       width:7.6rem;
       color: var( --brown-40);
@@ -15,7 +15,7 @@ const StyledBadge = styled.div`
     `}
 
   ${props =>
-    props.badgeText === '미답변' &&
+    props.$badgeText === '미답변' &&
     `
       width:6.1rem;
       color: var(--grayscale-40);
@@ -24,16 +24,17 @@ const StyledBadge = styled.div`
 
     p {
     display: flex;
-    height:100%;
+    height: 100%;
     align-items: center;
     justify-content: center;
     font-size: 1.4rem;
     font-weight: 500;
+  }
 `;
 
 function ModalBadge({ badgeText }) {
   return (
-    <StyledBadge badgeText={badgeText}>
+    <StyledBadge $badgeText={badgeText}>
       <p>{badgeText}</p>
     </StyledBadge>
   );
