@@ -19,7 +19,7 @@ const Button = styled.button`
 `;
 
 // export default function AnswerStatusKebab({ page, onClickInput }) {
-export default function AnswerStatusKebab({ page, answer }) {
+export default function AnswerStatusKebab({ path, answer }) {
   // const [isKebabCliked, setIsKebabCliked] = useState(false);
 
   // const handleKebabClick = () => {
@@ -38,7 +38,7 @@ export default function AnswerStatusKebab({ page, answer }) {
         <Badge badgeText="답변 완료" />
       )}
 
-      {page === 'answer' && (
+      {path === 'answer' && (
         // <Button onClick={handleKebabClick}>
         <Button>
           <More />
