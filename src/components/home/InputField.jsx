@@ -3,7 +3,8 @@ import Person from '../../assets/svgComponents/Person';
 
 const Div = styled.div`
   display: flex;
-  width: 33.6rem;
+  width: 100%;
+  height: 4.6rem;
   padding: 1.2rem 1.6rem;
   justify-content: center;
   align-items: center;

@@ -16,6 +16,20 @@ const Wrapper = styled.div`
   overflow: hidden;
 `;
 
+const WrapperGrid = styled.div`
+  @media (max-width: 375px) {
+    display: grid;
+    padding: 0 3.5rem;
+    grid-template-areas:
+      'logo'
+      'button'
+      'info';
+    grid-template-rows: auto auto auto;
+    grid-template-columns: 100%;
+    gap: 2.4rem;
+  }
+`;
+
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -27,7 +41,9 @@ const ButtonWrapper = styled.div`
     margin-top: 4.4rem;
     margin-right: 5rem;
   }
+
   @media (max-width: 375px) {
+    margin: 0 auto;
   }
 `;
 
@@ -35,6 +51,17 @@ const LogoImage = styled.img`
   display: block;
   margin: 6.9rem auto 2.4rem;
   grid-area: logo;
+
+  @media (max-width: 478px) {
+    width: 90%;
+    height: auto;
+  }
+
+  @media (max-width: 375px) {
+    width: 24rem;
+    height: 9.8rem;
+    margin: 8rem auto 0;
+  }
 `;
 
 const UserInfoContainer = styled.div`
@@ -45,10 +72,15 @@ const UserInfoContainer = styled.div`
   margin: 0 auto;
   padding: 3.2rem;
   flex-direction: column;
-  gap: 1.6rem;
+  justify-content: space-between;
   border-radius: 1.6rem;
   background: var(--grayscale-10);
   grid-area: info;
+
+  @media (max-width: 375px) {
+    height: 15.6rem;
+    padding: 2.4rem;
+  }
 `;
 
 export default function HomePage() {
@@ -78,6 +110,7 @@ export default function HomePage() {
 
   return (
     <Wrapper>
+<<<<<<< HEAD
       <ButtonWrapper>
         <ButtonBox outline>
           답변하러 가기
@@ -94,6 +127,21 @@ export default function HomePage() {
           질문 하기
         </ButtonBox>
       </UserInfoContainer>
+=======
+      <WrapperGrid>
+        <ButtonWrapper>
+          <ButtonBox outline="outline" small="small">
+            답변하러 가기
+            <ArrowRight />
+          </ButtonBox>
+        </ButtonWrapper>
+        <LogoImage src={logo} alt="Logo" />
+        <UserInfoContainer>
+          <InputField />
+          <ButtonBox>질문 하기</ButtonBox>
+        </UserInfoContainer>
+      </WrapperGrid>
+>>>>>>> 7674b45 (feat:HomePage반응형 구현, InputField width,height 수정)
     </Wrapper>
   );
 }
