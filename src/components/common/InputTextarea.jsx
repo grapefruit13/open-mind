@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 const Div = styled.div`
   display: flex;
-  width: 33.6rem;
-  height: 14rem;
+  width: 100%;
+  height: 100%;
   padding: 1.6rem;
   justify-content: center;
   align-items: flex-start;
