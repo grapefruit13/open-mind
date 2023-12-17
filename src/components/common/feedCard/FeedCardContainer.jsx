@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import FeedCard from './FeedCard';
 import Message from '../../../assets/svgComponents/Message';
-import { getQuestionsData } from '../../../utils/api';
-import { SUBJECT_URL } from '../../../constants/apiUrl';
 import NoQuestionBox from '../../questionFeed/NoQuestionBox';
+import { QuestionsContext } from '../../../utils/context';
 
 const Container = styled.div`
   display: inline-flex;
@@ -32,24 +31,7 @@ const CountQuestion = styled.div`
 `;
 
 export default function FeedCardContainer({ user }) {
-  const [questions, setQuestions] = useState([]);
-
-  const getQuestions = async () => {
-    const questionsData = await getQuestionsData(
-      `${SUBJECT_URL}${user.id}/questions/`,
-    );
-    setQuestions([...questionsData.results]);
-  };
-
-  useEffect(() => {
-    if (user.id !== undefined) {
-      getQuestions();
-    }
-  }, [user.id]);
-
-  // useEffect(() => {
-  //   console.log(questions);
-  // }, [questions]);
+  const { questions } = useContext(QuestionsContext);
 
   return questions.length > 0 ? (
     <Container>

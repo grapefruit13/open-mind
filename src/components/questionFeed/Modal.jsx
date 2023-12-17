@@ -1,9 +1,13 @@
+import { useState, useContext } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import Message from '../../assets/svgComponents/Message';
 import CloseSvg from '../../assets/svgComponents/CloseSvg';
 import UserProfileImg from '../common/userInfo/UserProfileImg';
 import InputTextarea from '../common/InputTextarea';
 import ButtonBox from '../common/button/ButtonBox';
+import { SUBJECT_URL } from '../../constants/apiUrl';
+import { QuestionsContext } from '../../utils/context';
 
 const StyledModal = styled.div`
   position: fixed;
@@ -92,8 +96,26 @@ const InputTextareaWrapper = styled.div`
   }
 `;
 
-function Modal({ user }) {
-  console.log(user);
+export default function Modal({ user, handleModal }) {
+  const [inputValue, setInputValue] = useState('');
+
+  const { getQuestions } = useContext(QuestionsContext);
+
+  const handleInputChange = input => {
+    setInputValue(input.value);
+  };
+
+  const handleSubmitButton = async () => {
+    try {
+      await axios.post(`${SUBJECT_URL}${user.id}/questions/`, {
+        content: inputValue,
+      });
+      getQuestions();
+    } catch (error) {
+      console.log(error);
+    }
+    handleModal();
+  };
 
   return (
     <StyledModal>
@@ -103,7 +125,7 @@ function Modal({ user }) {
             <Message size="2.8rem" color="#000" />
             <p>질문을 작성하세요</p>
           </Left>
-          <CloseBtn>
+          <CloseBtn onClick={handleModal}>
             <CloseSvg />
           </CloseBtn>
         </PopupHeader>
@@ -111,18 +133,25 @@ function Modal({ user }) {
           <span className="sender">To. </span>
           <UserProfileImg
             src={user.imageSource}
-            alt={UserProfileImg}
+            alt="userProfileImg"
             size="2.8rem"
           />
           <span className="userName">{user.name}</span>
         </RecipientContainer>
         <InputTextareaWrapper>
-          <InputTextarea height="14.8rem" type="질문" />
+          <InputTextarea
+            height="14.8rem"
+            type="질문"
+            onChangeInput={handleInputChange}
+          />
         </InputTextareaWrapper>
-        <ButtonBox disabled>질문 보내기</ButtonBox>
+        <ButtonBox
+          disabled={!inputValue}
+          onClickQuestionButton={handleSubmitButton}
+        >
+          질문 보내기
+        </ButtonBox>
       </StyledPopup>
     </StyledModal>
   );
 }
-
-export default Modal;
