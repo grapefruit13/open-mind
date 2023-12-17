@@ -1,12 +1,11 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import Message from '../../assets/svgComponents/Message';
 import CloseSvg from '../../assets/svgComponents/CloseSvg';
-import sampleProfile from '../../../public/assets/sampleProfile.png';
+import UserProfileImg from '../common/userInfo/UserProfileImg';
 import InputTextarea from '../common/InputTextarea';
 import ButtonBox from '../common/button/ButtonBox';
 
-const StyleModal = styled.div`
+const StyledModal = styled.div`
   position: fixed;
   top: 0px;
   width: 100%;
@@ -57,7 +56,6 @@ const PopupHeader = styled.div`
   p {
     margin-left: 0.8rem;
     color: var(--grayscale-60, #000);
-    font-family: Actor;
     font-size: 2.4rem;
     line-height: 125%;
   }
@@ -76,25 +74,13 @@ const RecipientContainer = styled.div`
 
   span.sender {
     color: var(--grayscale-60, #000);
-    font-family: Actor;
     font-size: 1.8rem;
   }
 
   span.userName {
     color: var(--grayscale-60, #000);
-    font-family: Pretendard;
     font-size: 1.6rem;
   }
-`;
-
-const ProfileWrapper = styled.div`
-  width: 2.8rem;
-`;
-
-const ProfileImage = styled.img`
-  display: block;
-  width: 100%;
-  height: 100%;
 `;
 
 const InputTextareaWrapper = styled.div`
@@ -106,65 +92,36 @@ const InputTextareaWrapper = styled.div`
   }
 `;
 
-function Modal() {
-  const [modalVisible, setModalVisible] = useState(true);
-  const userNameData = '아초는 고양이';
-  const handleClose = () => {
-    setModalVisible(false);
-  };
-
-  const handleQuestionSubmit = async () => {
-    try {
-      const response = await fetch('/api/questions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userName: userNameData,
-          // Add other question data as needed
-        }),
-      });
-
-      if (response.ok) {
-        // Handle success
-        console.log('Question submitted successfully');
-      } else {
-        // Handle error
-        console.error('Failed to submit question');
-      }
-    } catch (error) {
-      console.error('Error submitting question:', error);
-    }
-  };
+function Modal({ user }) {
+  console.log(user);
 
   return (
-    <StyleModal style={{ display: modalVisible ? 'block' : 'none' }}>
+    <StyledModal>
       <StyledPopup>
         <PopupHeader>
           <Left>
-            <Message width={28} />
+            <Message size="2.8rem" color="#000" />
             <p>질문을 작성하세요</p>
           </Left>
-          <CloseBtn onClick={handleClose}>
+          <CloseBtn>
             <CloseSvg />
           </CloseBtn>
         </PopupHeader>
         <RecipientContainer>
-          <span className="sender">To.</span>
-          <ProfileWrapper>
-            <ProfileImage src={sampleProfile} alt="profile" />
-          </ProfileWrapper>
-          <span className="userName">{userNameData}</span>
+          <span className="sender">To. </span>
+          <UserProfileImg
+            src={user.imageSource}
+            alt={UserProfileImg}
+            size="2.8rem"
+          />
+          <span className="userName">{user.name}</span>
         </RecipientContainer>
         <InputTextareaWrapper>
-          <InputTextarea />
+          <InputTextarea height="14.8rem" type="질문" />
         </InputTextareaWrapper>
-        <ButtonBox disabled onClick={handleQuestionSubmit}>
-          질문 보내기
-        </ButtonBox>
+        <ButtonBox disabled>질문 보내기</ButtonBox>
       </StyledPopup>
-    </StyleModal>
+    </StyledModal>
   );
 }
 

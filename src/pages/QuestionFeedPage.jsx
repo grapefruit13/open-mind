@@ -5,6 +5,7 @@ import FeedCardContainer from '../components/common/feedCard/FeedCardContainer';
 import ButtonFloating from '../components/common/button/ButtonFloating';
 import getData from '../utils/api';
 import { SUBJECT_URL } from '../constants/apiUrl';
+import Modal from '../components/questionFeed/Modal';
 
 const Container = styled.div`
   width: 100%;
@@ -23,15 +24,22 @@ const ButtonWrapper = styled.div`
 
 export default function QuestionFeedPage() {
   const [user, setUser] = useState({});
+  const [isOpenedModal, setIsOpendModal] = useState(true);
+
+  const getUserData = async () => {
+    const userData = await getData(`${SUBJECT_URL}1501/`);
+    // console.log(userData);
+    setUser(userData);
+  };
 
   useEffect(() => {
-    const getUserData = async () => {
-      const userData = await getData(`${SUBJECT_URL}1500/`);
-      // console.log(userData);
-      setUser(userData);
-    };
     getUserData();
   }, []);
+
+  const handleModal = () => {
+    setIsOpendModal(prev => !prev);
+    console.log('click');
+  };
 
   // useEffect(() => {
   //   console.log(user);
@@ -47,9 +55,12 @@ export default function QuestionFeedPage() {
       <ContentsWrapper>
         <FeedCardContainer user={user} />
         <ButtonWrapper>
-          <ButtonFloating large>질문 작성하기</ButtonFloating>
+          <ButtonFloating large onClick={handleModal}>
+            질문 작성하기
+          </ButtonFloating>
         </ButtonWrapper>
       </ContentsWrapper>
+      {isOpenedModal && <Modal user={user} />}
     </Container>
   );
 }
