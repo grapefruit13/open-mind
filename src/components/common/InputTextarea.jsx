@@ -3,12 +3,7 @@ import styled from 'styled-components';
 
 const Div = styled.div`
   display: flex;
-<<<<<<< HEAD
   height: ${props => props.height};
-=======
-  width: 100%;
-  height: 100%;
->>>>>>> 5e745e2 (InputText,Modal,Homepage변경사항)
   padding: 1.6rem;
   margin-bottom: ${props => props.marginbottom};
   justify-content: center;

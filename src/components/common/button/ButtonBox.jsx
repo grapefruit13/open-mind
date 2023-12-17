@@ -77,9 +77,20 @@ const StyledButton = styled.button`
     `}
 `;
 
-function ButtonBox({ children, disabled, outline, small }) {
+function ButtonBox({
+  children,
+  disabled,
+  outline,
+  small,
+  onClickQuestionButton,
+}) {
   return (
-    <StyledButton disabled={disabled} $outline={outline} $small={small}>
+    <StyledButton
+      disabled={disabled}
+      $outline={outline}
+      $small={small}
+      onClick={onClickQuestionButton}
+    >
       {children}
     </StyledButton>
   );

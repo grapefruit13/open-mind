@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import Person from '../../assets/svgComponents/Person';
 
 const Div = styled.div`
@@ -18,12 +17,6 @@ const Div = styled.div`
   }
 `;
 
-// const Img = styled.img`
-//   width: 2rem;
-//   height: 2rem;
-//   flex-shrink: 0;
-// `;
-
 const Input = styled.input`
   flex: 1 0 0;
   border: none;
@@ -34,10 +27,9 @@ const Input = styled.input`
   }
 `;
 
-function InputField() {
-  const [value, setValue] = useState('');
+export default function InputField({ onChangeUserNameInput }) {
   const hanleChange = e => {
-    setValue(() => e.target.value);
+    onChangeUserNameInput(e.target.value);
   };
 
   return (
@@ -46,11 +38,8 @@ function InputField() {
       <Input
         type="text"
         placeholder="이름을 입력해주세요"
-        value={value}
         onChange={hanleChange}
       />
     </Div>
   );
 }
-
-export default InputField;

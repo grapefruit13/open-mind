@@ -1,9 +1,14 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import logo from '../../public/assets/logo.svg';
 import ButtonBox from '../components/common/button/ButtonBox';
 import ArrowRight from '../assets/svgComponents/ArrowRight';
 import talkBg from '../../public/assets/talkbg.png';
 import InputField from '../components/home/InputField';
+// import useAxios from '../hooks/useAxios';
+import { SUBJECT_URL } from '../constants/apiUrl';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -47,6 +52,30 @@ const UserInfoContainer = styled.div`
 `;
 
 export default function HomePage() {
+  const [userName, setUserName] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleUserNameInput = inputValue => {
+    setUserName(inputValue);
+  };
+
+  const handleQuestionButton = () => {
+    axios
+      .post(SUBJECT_URL, {
+        name: userName,
+        team: '2-2',
+      })
+      .then(({ data }) => {
+        // console.log(data);
+        localStorage.setItem('userData', JSON.stringify(data));
+        navigate(`/post/${data.id}/answer`);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
+
   return (
     <Wrapper>
       <ButtonWrapper>
@@ -57,8 +86,13 @@ export default function HomePage() {
       </ButtonWrapper>
       <LogoImage src={logo} alt="Logo" />
       <UserInfoContainer>
-        <InputField />
-        <ButtonBox style={{ width: ' 100%' }}>질문 하기</ButtonBox>
+        <InputField onChangeUserNameInput={handleUserNameInput} />
+        <ButtonBox
+          style={{ width: ' 100%' }}
+          onClickQuestionButton={handleQuestionButton}
+        >
+          질문 하기
+        </ButtonBox>
       </UserInfoContainer>
     </Wrapper>
   );

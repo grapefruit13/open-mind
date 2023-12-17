@@ -37,7 +37,7 @@ export default function FeedCardContainer({ user }) {
   useEffect(() => {
     const getQuestions = async () => {
       const questionsData = await getQuestionsData(
-        `${SUBJECT_URL}1455/questions/`,
+        `${SUBJECT_URL}${user.id}/questions/`,
       );
       setQuestions([...questionsData.results]);
     };

@@ -8,13 +8,20 @@ const Container = styled.div`
   width: 71.6rem;
 `;
 
+const userData = JSON.parse(localStorage.getItem('userData'));
+// console.log(userData);
+
 export default function AnswerPage() {
   return (
     <>
-      <Header marginBottom="14rem" />
+      <Header
+        userName={userData.name}
+        userProfileImg={userData.imageSource}
+        marginBottom="14rem"
+      />
       <Container>
         <ButtonFloating small>삭제하기</ButtonFloating>
-        <FeedCardContainer />
+        <FeedCardContainer user={userData} />
       </Container>
     </>
   );
