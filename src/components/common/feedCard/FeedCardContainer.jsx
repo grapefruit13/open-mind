@@ -54,7 +54,7 @@ export default function FeedCardContainer({ user }) {
   return questions.length > 0 ? (
     <Container>
       <CountQuestion>
-        <Message size="2.4rem" />
+        <Message size="2.4rem" color="#542F1A" />
         <span>{questions.length}개의 질문이 있습니다.</span>
       </CountQuestion>
       {questions.map(question => {
