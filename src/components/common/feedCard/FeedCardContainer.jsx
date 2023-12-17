@@ -34,15 +34,18 @@ const CountQuestion = styled.div`
 export default function FeedCardContainer({ user }) {
   const [questions, setQuestions] = useState([]);
 
+  const getQuestions = async () => {
+    const questionsData = await getQuestionsData(
+      `${SUBJECT_URL}${user.id}/questions/`,
+    );
+    setQuestions([...questionsData.results]);
+  };
+
   useEffect(() => {
-    const getQuestions = async () => {
-      const questionsData = await getQuestionsData(
-        `${SUBJECT_URL}${user.id}/questions/`,
-      );
-      setQuestions([...questionsData.results]);
-    };
-    getQuestions();
-  }, []);
+    if (user.id !== undefined) {
+      getQuestions();
+    }
+  }, [user.id]);
 
   // useEffect(() => {
   //   console.log(questions);

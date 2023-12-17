@@ -26,7 +26,7 @@ export default function QuestionFeedPage() {
 
   useEffect(() => {
     const getUserData = async () => {
-      const userData = await getData(`${SUBJECT_URL}1455/`);
+      const userData = await getData(`${SUBJECT_URL}1500/`);
       // console.log(userData);
       setUser(userData);
     };
