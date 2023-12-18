@@ -110,38 +110,21 @@ export default function HomePage() {
 
   return (
     <Wrapper>
-<<<<<<< HEAD
-      <ButtonWrapper>
-        <ButtonBox outline>
-          답변하러 가기
-          <ArrowRight />
-        </ButtonBox>
-      </ButtonWrapper>
-      <LogoImage src={logo} alt="Logo" />
-      <UserInfoContainer>
-        <InputField onChangeUserNameInput={handleUserNameInput} />
-        <ButtonBox
-          style={{ width: ' 100%' }}
-          onClickQuestionButton={handleQuestionButton}
-        >
-          질문 하기
-        </ButtonBox>
-      </UserInfoContainer>
-=======
       <WrapperGrid>
         <ButtonWrapper>
-          <ButtonBox outline="outline" small="small">
+          <ButtonBox outline small height="3.4rem">
             답변하러 가기
             <ArrowRight />
           </ButtonBox>
         </ButtonWrapper>
         <LogoImage src={logo} alt="Logo" />
         <UserInfoContainer>
-          <InputField />
-          <ButtonBox>질문 하기</ButtonBox>
+          <InputField onChangeUserNameInput={handleUserNameInput} />
+          <ButtonBox onClickQuestionButton={handleQuestionButton}>
+            질문 하기
+          </ButtonBox>
         </UserInfoContainer>
       </WrapperGrid>
->>>>>>> 7674b45 (feat:HomePage반응형 구현, InputField width,height 수정)
     </Wrapper>
   );
 }
