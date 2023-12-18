@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -43,6 +43,7 @@ const ButtonWrapper = styled.div`
   }
 
   @media (max-width: 375px) {
+    height: 3.4rem;
     margin: 0 auto;
   }
 `;
@@ -85,8 +86,19 @@ const UserInfoContainer = styled.div`
 
 export default function HomePage() {
   const [userName, setUserName] = useState('');
-
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 375);
   const navigate = useNavigate();
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 375);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleUserNameInput = inputValue => {
     setUserName(inputValue);
@@ -112,7 +124,7 @@ export default function HomePage() {
     <Wrapper>
       <WrapperGrid>
         <ButtonWrapper>
-          <ButtonBox outline small height="3.4rem">
+          <ButtonBox outline small={isSmallScreen}>
             답변하러 가기
             <ArrowRight />
           </ButtonBox>
