@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import FeedCard from './FeedCard';
 import Message from '../../../assets/svgComponents/Message';
-import { getQuestionsData } from '../../../utils/api';
-import { SUBJECT_URL } from '../../../constants/apiUrl';
 import NoQuestionBox from '../../questionFeed/NoQuestionBox';
+import { QuestionsContext } from '../../../utils/context';
 
 const Container = styled.div`
   display: inline-flex;
@@ -32,33 +31,51 @@ const CountQuestion = styled.div`
 `;
 
 export default function FeedCardContainer({ user }) {
-  const [questions, setQuestions] = useState([]);
+  const { questions } = useContext(QuestionsContext);
+  // const [data, setData] = useState({});
 
-  useEffect(() => {
-    const getQuestions = async () => {
-      const questionsData = await getQuestionsData(
-        `${SUBJECT_URL}1455/questions/`,
-      );
-      setQuestions([...questionsData.results]);
-    };
-    getQuestions();
-  }, []);
+  // const handleGetQuestions = async () => {
+  //   try {
+  //     const response = await getQuestions('1377');
+  //     console.log(response, 'response');
+  //     setData(response);
+  //   } catch (e) {
+  //     throw Error(`Answer page의 handleGetQuestions에서 ${e} 발생`);
+  //   }
+  // };
+
+  // 화면 렌더링 될 때마다 questionId들을 배열로 저장해서 answerPage에 전달
+  // const handleAllDelete = () => {
+  //   console.log(`handleAllDelete`);
+  //   console.log(questions); // 처음 로딩시 null 출력됨
+  //   if (!questions) return;
+  //   const questionIds = questions.map(result => result.id);
+  //   allDeleteInput(questionIds);
+  //   console.log('questionIds', questionIds);
+  // };
 
   // useEffect(() => {
-  //   console.log(questions);
-  // }, [questions]);
+  //   console.log('FeedCardContainer 랜더링');
+  // }, []);
 
-  return questions.length > 0 ? (
-    <Container>
-      <CountQuestion>
-        <Message size="2.4rem" />
-        <span>{questions.length}개의 질문이 있습니다.</span>
-      </CountQuestion>
-      {questions.map(question => {
-        return <FeedCard key={question.id} question={question} user={user} />;
-      })}
-    </Container>
-  ) : (
-    <NoQuestionBox />
+  return (
+    <>
+      {/* {data.results ? ( */}
+      {questions.length ? (
+        <Container>
+          <CountQuestion>
+            <Message size="2.4rem" />
+            <span>{questions.length}개의 질문이 있습니다.</span>
+          </CountQuestion>
+          {questions.map(question => {
+            return (
+              <FeedCard key={question.id} question={question} user={user} />
+            );
+          })}
+        </Container>
+      ) : (
+        <NoQuestionBox />
+      )}
+    </>
   );
 }
