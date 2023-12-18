@@ -80,12 +80,12 @@ const StyledButton = styled.button`
 
 function ButtonBox({ children, disabled, outline, small, onClickBtnInput }) {
   // 버튼이 클릭됐는지, 안 됐는지
-  const [cliked, setClicked] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {
     setClicked(true);
     onClickBtnInput(true);
-    console.log('cliekd');
+    console.log('clicked');
   };
 
   return (

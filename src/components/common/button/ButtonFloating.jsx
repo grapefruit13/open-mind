@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled, { css } from 'styled-components';
 
 const StyledButton = styled.button`
@@ -58,9 +59,21 @@ const StyledButton = styled.button`
     `}
 `;
 
-function ButtonFloating({ children, large, small, xsmall }) {
+function ButtonFloating({ children, large, small, xsmall, onClickInput }) {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    setIsClicked(true);
+    onClickInput(true);
+  };
+
   return (
-    <StyledButton $large={large} $small={small} $xsmall={xsmall}>
+    <StyledButton
+      $large={large}
+      $small={small}
+      $xsmall={xsmall}
+      onClick={handleClick}
+    >
       {children}
     </StyledButton>
   );
