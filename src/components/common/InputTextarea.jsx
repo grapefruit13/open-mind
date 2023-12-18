@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { DropdownContext } from '../../utils/context';
+import { DropdownContext } from '../../utils/contexts/context';
 
 const Div = styled.div`
   box-sizing: content-box;
@@ -42,7 +42,7 @@ export default function InputTextarea({
   // onChangeInput,
 }) {
   const { setInputTextarea } = useContext(DropdownContext);
-  const [inputState, setInputState] = useState('');
+  const [, setInputState] = useState('');
 
   const handleInputChange = e => {
     setInputState(e.target.value);

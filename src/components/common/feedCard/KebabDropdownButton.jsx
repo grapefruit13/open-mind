@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { DropdownContext } from '../../../utils/context';
+import { DropdownContext } from '../../../utils/contexts/context';
 
 const Button = styled.button`
   color: var(--Grayscale-50);

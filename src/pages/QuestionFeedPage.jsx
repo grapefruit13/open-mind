@@ -4,9 +4,9 @@ import Header from '../components/common/header/Header';
 import FeedCardContainer from '../components/common/feedCard/FeedCardContainer';
 import ButtonFloating from '../components/common/button/ButtonFloating';
 import getData, { getQuestionsData } from '../utils/api';
-import { SUBJECT_URL } from '../constants/apiUrl';
+import { SUBJECT_URL } from '../utils/constants/apiUrl';
 import Modal from '../components/questionFeed/Modal';
-import { QuestionsContext } from '../utils/context';
+import { QuestionsContext } from '../utils/contexts/context';
 
 const Container = styled.div`
   width: 100%;

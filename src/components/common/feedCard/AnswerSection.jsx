@@ -6,7 +6,7 @@ import DatesAgo from './DatesAgo';
 import AnswerContent from './AnswerContent';
 import InputTextarea from '../InputTextarea';
 import ButtonBox from '../button/ButtonBox';
-import { DropdownContext } from '../../../utils/context';
+import { DropdownContext } from '../../../utils/contexts/context';
 import AnswerRejected from './AnswerRejected';
 
 const Container = styled.div`

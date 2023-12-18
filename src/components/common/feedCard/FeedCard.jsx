@@ -8,7 +8,10 @@ import Devider from './Devider';
 import ReactionButtons from '../ReactionButtons';
 import KebabDropdown from './KebabDropdown';
 import { deleteQuestion, postAnswer, putAnswer } from '../../../utils/api';
-import { QuestionsContext, DropdownContext } from '../../../utils/context';
+import {
+  QuestionsContext,
+  DropdownContext,
+} from '../../../utils/contexts/context';
 
 const Container = styled.div`
   position: relative;

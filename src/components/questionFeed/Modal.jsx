@@ -6,8 +6,8 @@ import CloseSvg from '../../assets/svgComponents/CloseSvg';
 import UserProfileImg from '../common/userInfo/UserProfileImg';
 import InputTextarea from '../common/InputTextarea';
 import ButtonBox from '../common/button/ButtonBox';
-import { SUBJECT_URL } from '../../constants/apiUrl';
-import { QuestionsContext } from '../../utils/context';
+import { SUBJECT_URL } from '../../utils/constants/apiUrl';
+import { QuestionsContext } from '../../utils/contexts/context';
 
 const StyledModal = styled.div`
   position: fixed;

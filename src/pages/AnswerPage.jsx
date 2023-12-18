@@ -4,8 +4,8 @@ import FeedCardContainer from '../components/common/feedCard/FeedCardContainer';
 import Header from '../components/common/header/Header';
 import ButtonFloating from '../components/common/button/ButtonFloating';
 import getUserData, { getQuestionsData } from '../utils/api';
-import { SUBJECT_URL } from '../constants/apiUrl';
-import { QuestionsContext } from '../utils/context';
+import { SUBJECT_URL } from '../utils/constants/apiUrl';
+import { QuestionsContext } from '../utils/contexts/context';
 
 const Container = styled.div`
   margin: auto;
@@ -82,7 +82,7 @@ export default function AnswerPage() {
   // feedcardContainer에서 delete할 questionId들 가져오기
   const handleDeleteQuestion = state => {
     setDeleteQuestionIds(state);
-  // console.log('state', state);
+    // console.log('state', state);
   };
 
   // 디버깅 필요

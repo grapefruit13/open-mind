@@ -60,7 +60,7 @@ const StyledButton = styled.button`
 `;
 
 function ButtonFloating({ children, large, small, xsmall, onClickInput }) {
-  const [isClicked, setIsClicked] = useState(false);
+  const [, setIsClicked] = useState(false);
 
   const handleClick = () => {
     setIsClicked(true);

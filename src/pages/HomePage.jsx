@@ -8,7 +8,7 @@ import ArrowRight from '../assets/svgComponents/ArrowRight';
 import talkBg from '../../public/assets/talkbg.png';
 import InputField from '../components/home/InputField';
 // import useAxios from '../hooks/useAxios';
-import { SUBJECT_URL } from '../constants/apiUrl';
+import { SUBJECT_URL } from '../utils/constants/apiUrl';
 
 const Wrapper = styled.div`
   height: 100vh;
