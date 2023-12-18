@@ -1,14 +1,11 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
+import { DropdownContext } from '../../utils/context';
 
 const Div = styled.div`
   display: flex;
-<<<<<<< HEAD
   height: ${props => props.height};
-=======
   width: 100%;
-  height: 100%;
->>>>>>> 5e745e2 (InputText,Modal,Homepage변경사항)
   padding: 1.6rem;
   margin-bottom: ${props => props.marginbottom};
   justify-content: center;
@@ -42,33 +39,31 @@ export default function InputTextarea({
   height,
   marginbottom,
   type,
-  onChangeInput,
+  content,
+  // onChangeInput,
 }) {
-  const [inputState, setInputState] = useState({
-    value: '',
-    hasValue: false,
-  });
+  const { setInputTextarea } = useContext(DropdownContext);
+  const [inputState, setInputState] = useState('');
 
   const handleInputChange = e => {
-    setInputState(prev => ({ ...prev, value: e.target.value, hasValue: true }));
-    onChangeInput({ value: e.target.value, hasValue: true });
-  };
-
-  const handleInputKeyDown = e => {
-    if (e.key === 'Backspace' && !e.target.value) {
+    setInputState(e.target.value);
+    setInputTextarea(e.target.value);
+    if (!e.target.value) {
       setInputState(prev => ({ ...prev, hasValue: false }));
-      onChangeInput({ hasValue: false });
     }
   };
+
+  // useEffect(() => {
+  //   setInputTextarea(prev => ({ ...prev, ...inputState }));
+  // }, [inputState, setInputTextarea]);
 
   return (
     <Div height={height} marginbottom={marginbottom}>
       <Textarea
         type="text"
         placeholder={`${type}을 입력해주세요`}
-        value={inputState.value}
         onChange={handleInputChange}
-        onKeyDown={handleInputKeyDown}
+        defaultValue={content}
       />
     </Div>
   );
