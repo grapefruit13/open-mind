@@ -58,7 +58,7 @@ function NoQuestionBox() {
   return (
     <Container>
       <Flex>
-        <Message size="2.4rem" />
+        <Message size="2.4rem" color="#542F1A" />
         <TextContainer>아직 질문이 없습니다</TextContainer>
       </Flex>
       <EmptyBoxImg src={emptyBox} />

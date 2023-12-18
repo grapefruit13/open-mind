@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import Header from '../components/common/header/Header';
 import FeedCardContainer from '../components/common/feedCard/FeedCardContainer';
 import ButtonFloating from '../components/common/button/ButtonFloating';
-import getData from '../utils/api';
+import getData, { getQuestionsData } from '../utils/api';
 import { SUBJECT_URL } from '../constants/apiUrl';
+import Modal from '../components/questionFeed/Modal';
+import { QuestionsContext } from '../utils/context';
 
 const Container = styled.div`
   width: 100%;
@@ -23,33 +25,57 @@ const ButtonWrapper = styled.div`
 
 export default function QuestionFeedPage() {
   const [user, setUser] = useState({});
+  const [isOpenedModal, setIsOpendModal] = useState(false);
+  const [questions, setQuestions] = useState([]);
+
+  const getUserData = async () => {
+    const userData = await getData(`${SUBJECT_URL}1501/`);
+    // console.log(userData);
+    setUser(userData);
+  };
 
   useEffect(() => {
-    const getUserData = async () => {
-      const userData = await getData(`${SUBJECT_URL}1455/`);
-      // console.log(userData);
-      setUser(userData);
-    };
     getUserData();
   }, []);
 
-  // useEffect(() => {
-  //   console.log(user);
-  // }, [user]);
+  const handleModal = () => {
+    setIsOpendModal(prev => !prev);
+  };
+
+  const getQuestions = useCallback(async () => {
+    const questionsData = await getQuestionsData(
+      `${SUBJECT_URL}${user.id}/questions/`,
+    );
+    setQuestions([...questionsData.results]);
+  }, [user.id]);
+
+  useEffect(() => {
+    if (user.id !== undefined) {
+      getQuestions();
+    }
+  }, [user.id, getQuestions]);
+
+  const providerValue = useMemo(
+    () => ({ questions, getQuestions }),
+    [questions, getQuestions],
+  );
 
   return (
-    <Container>
-      <Header
-        marginBottom="19.2rem"
-        userName={user.name}
-        userProfileImg={user.imageSource}
-      />
-      <ContentsWrapper>
-        <FeedCardContainer user={user} />
-        <ButtonWrapper>
-          <ButtonFloating large>질문 작성하기</ButtonFloating>
-        </ButtonWrapper>
-      </ContentsWrapper>
-    </Container>
+    <QuestionsContext.Provider value={providerValue}>
+      <Container>
+        <Header
+          marginBottom="19.2rem"
+          userName={user.name}
+          userProfileImg={user.imageSource}
+        />
+        <ContentsWrapper>
+          <FeedCardContainer user={user} />
+          <ButtonWrapper onClick={() => setIsOpendModal(prev => !prev)}>
+            <ButtonFloating large>질문 작성하기</ButtonFloating>
+          </ButtonWrapper>
+        </ContentsWrapper>
+        {isOpenedModal && <Modal user={user} handleModal={handleModal} />}
+      </Container>
+    </QuestionsContext.Provider>
   );
 }
