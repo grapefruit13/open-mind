@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import ButtonBox from '../components/common/button/ButtonBox';
 import Dropdown from '../components/list/dropdown/Drodown';
 import UserCard from '../components/list/UserCard';
 import ArrowRight from '../assets/svgComponents/ArrowRight';
 import logo from '../../public/assets/logo.svg';
+import Pagenation from '../components/list/Pagenation';
 
 const Container = styled.div`
   height: 100vh;
@@ -86,6 +89,7 @@ const Main = styled.main`
   justify-content: center;
   align-items: center;
   gap: 4rem;
+  padding: 0rem 3.2rem;
 
   @media (min-width: 768px) and (max-width: 868px) {
     gap: 6.1rem;
@@ -98,23 +102,21 @@ const Main = styled.main`
 `;
 
 const CardsContainer = styled.div`
-  margin: 0rem 3.2rem;
   display: grid;
   gap: 2rem;
-  grid-template: repeat(2, 1fr) / repeat(4, 1fr);
+  grid-template: repeat(2, 1fr) / repeat(4, minmax(18.6rem, 22rem));
 
   @media (min-width: 768px) and (max-width: 868px) {
-    grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+    grid-template: repeat(2, 1fr) / repeat(3, 18.6rem);
   }
   @media (max-width: 767px) {
-    grid-template: repeat(3, 1fr) / repeat(2, 1fr);
+    grid-template: repeat(3, 16.8rem) / repeat(2, minmax(18.6rem, 22rem));
   }
 `;
 
-const PageNation = styled.div`
+const PageNationContainer = styled.div`
   display: inline-flex;
 
-  color: var(--Grayscale-40, #818181);
   text-align: center;
   font-feature-settings:
     'clig' off,
@@ -123,9 +125,7 @@ const PageNation = styled.div`
   font-size: 2rem;
   font-style: normal;
   font-weight: 400;
-
-  @media (max-width: 767px) {
-  }
+  cursor: ${({ $isClicked }) => ($isClicked ? 'pointer' : 'default')};
 `;
 
 const PageNums = styled.p`
@@ -135,43 +135,176 @@ const PageNums = styled.p`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: var(--Grayscale-40, #818181);
 `;
 
+async function getDataByLimit(limit, offset, sort) {
+  try {
+    const response = await axios.get(
+      `https://openmind-api.vercel.app/2-2/subjects/?limit=${limit}&offset=${offset}&sort=${sort}`,
+    );
+    return response.data;
+  } catch (e) {
+    throw Error(`getData에서 ${e} 발생`);
+  }
+}
+
+async function getDataByUrl(url) {
+  try {
+    const response = await axios.get(
+      `https://openmind-api.vercel.app/2-2/subjects/${url}`,
+    );
+    return response.data;
+  } catch (e) {
+    throw Error(`getData에서 ${e} 발생`);
+  }
+}
+
 function QuestionListPage() {
-  const [selectedMenuState, setSelectedMenuState] = useState('이름순');
+  const [selectedMenuState, setSelectedMenuState] = useState('name');
+  const [userId, setUserId] = useState('null');
+  const [pageWidth, setPageWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(8);
+  const [list, setList] = useState();
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+  const [currentPageBlock, setCurrentPageBlock] = useState(0);
+  const [totalPageBlock, setTotalPageBlock] = useState(0);
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsClicked(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsClicked(false);
+  };
+
+  const handleSize = () => {
+    setPageWidth(window.innerWidth);
+  };
+
+  const handleNextPageBlock = () => {
+    if (totalPageBlock > currentPageBlock + 1) {
+      setCurrentPageBlock(currentPageBlock + 1);
+      setPage((currentPageBlock + 1) * 5 + 1);
+    }
+  };
+
+  const handlePrevPageBlock = () => {
+    if (currentPageBlock > 0) {
+      setCurrentPageBlock(currentPageBlock - 1);
+      setPage((currentPageBlock - 1) * 5 + 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (page < totalPage) {
+      setPage(page + 1);
+      if ((currentPageBlock + 1) * 5 === page) {
+        setCurrentPageBlock(currentPageBlock + 1);
+      }
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+      if (currentPageBlock * 5 + 1 === page) {
+        setCurrentPageBlock(currentPageBlock - 1);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const id = localStorage.getItem('Id');
+    setUserId(id);
+    window.addEventListener('resize', handleSize);
+    if (pageWidth <= 868) {
+      setWidth(6);
+    } else {
+      setWidth(8);
+    }
+
+    return () => {
+      window.removeEventListener('resize', handleSize);
+    };
+  }, [pageWidth]);
+
+  useEffect(() => {
+    const getListData = async (limit, offset, sort) => {
+      const cardListData = await getDataByLimit(limit, offset, sort);
+      setList({ ...cardListData });
+      setTotalPage(Math.ceil(cardListData.count / limit));
+    };
+    getListData(width, (page - 1) * width, selectedMenuState);
+  }, [selectedMenuState, page, width, currentPageBlock]);
+
+  useEffect(() => {
+    setTotalPageBlock(Math.ceil(totalPage / 5));
+  }, [totalPage]);
 
   return (
     <Container>
       <Nav>
         <Logo src={logo} />
         <ButtonSizingDiv>
-          <ButtonBox outline="outline">
-            답변하러 가기
-            <ArrowRight />
-          </ButtonBox>
+          {userId ? (
+            <Link to={`/post/${userId}/answer`}>
+              <ButtonBox outline="outline">
+                답변하러 가기
+                <ArrowRight />
+              </ButtonBox>
+            </Link>
+          ) : (
+            <Link to="/">
+              <ButtonBox outline="outline">
+                답변하러 가기
+                <ArrowRight />
+              </ButtonBox>
+            </Link>
+          )}
         </ButtonSizingDiv>
       </Nav>
       <Header>
         <Title>누구에게 질문할까요?</Title>
-        <Dropdown setSelectedMenuState={setSelectedMenuState} />
+        <Dropdown
+          setSelectedMenuState={setSelectedMenuState}
+          $isClicked={isClicked}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        />
       </Header>
       <Main>
         <CardsContainer>
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
+          {list?.results.map(item => (
+            <Link to={`/post/${item.id}`} key={`key_${item.id}`}>
+              <UserCard
+                imgSrc={item.imageSource}
+                userName={item.name}
+                questions={item.questionCount}
+              />
+            </Link>
+          ))}
         </CardsContainer>
-        <PageNation>
-          <PageNums>{'<'}</PageNums>
-          <PageNums>1</PageNums>
-          <PageNums>1</PageNums>
-          <PageNums>1</PageNums>
-          <PageNums>1</PageNums>
-          <PageNums>{'>'}</PageNums>
-        </PageNation>
+        <PageNationContainer
+          $isClicked={isClicked}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <PageNums onClick={handlePrevPageBlock}>{'<<'}</PageNums>
+          <PageNums onClick={handlePrevPage}>{'<'}</PageNums>
+          <Pagenation
+            currentPageBlock={currentPageBlock}
+            setCurrentPageBlock={setCurrentPageBlock}
+            totalPageBlock={totalPageBlock}
+            totalPage={totalPage}
+            setPage={setPage}
+            page={page}
+          />
+          <PageNums onClick={handleNextPage}>{'>'}</PageNums>
+          <PageNums onClick={handleNextPageBlock}>{'>>'}</PageNums>
+        </PageNationContainer>
       </Main>
     </Container>
   );
