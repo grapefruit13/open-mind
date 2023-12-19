@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import FeedCard from './FeedCard';
 import Message from '../../../assets/svgComponents/Message';
 import NoQuestionBox from '../../questionFeed/NoQuestionBox';
-import { QuestionsContext } from '../../../utils/contexts/context';
+import { QuestionsContext } from '../../../utils/contexts/questions';
 
 const Container = styled.div`
   display: inline-flex;

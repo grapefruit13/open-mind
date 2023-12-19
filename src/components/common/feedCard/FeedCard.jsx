@@ -9,9 +9,10 @@ import ReactionButtons from '../ReactionButtons';
 import KebabDropdown from './KebabDropdown';
 import { deleteQuestion, postAnswer, putAnswer } from '../../../utils/api';
 import {
-  QuestionsContext,
+  // QuestionsContext,
   DropdownContext,
 } from '../../../utils/contexts/context';
+import { QuestionsContext } from '../../../utils/contexts/questions';
 
 const Container = styled.div`
   position: relative;

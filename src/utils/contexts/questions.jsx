@@ -1,34 +1,30 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { getQuestionsData } from '../api';
 import { SUBJECT_URL } from '../constants/apiUrl';
 
-const QuestionsContext = React.createContext();
+export const QuestionsContext = React.createContext();
 
-function QuestionsProvider() {
+export default function QuestionsProvider({ children }) {
   const [questions, setQuestions] = useState([]);
 
-  const getQuestions = useCallback(async () => {
-    const questionsData = await getQuestionsData(
-      `${SUBJECT_URL}${user.id}/questions/`,
-    );
-    setQuestions([...questionsData.results]);
-  }, [user.id]);
-
-  useEffect(() => {
-    if (user.id !== undefined) {
-      getQuestions();
+  const handleQuestionsData = useCallback(async subjectId => {
+    try {
+      const questionsData = await getQuestionsData(
+        `${SUBJECT_URL}${subjectId}/questions/`,
+      );
+      setQuestions([...questionsData.results]);
+    } catch (error) {
+      throw Error(error);
     }
-  }, [user.id, getQuestions]);
+  }, []);
 
   const providerValue = useMemo(
-    () => ({ questions, getQuestions }),
-    [questions, getQuestions],
+    () => ({ questions, handleQuestionsData }),
+    [questions, handleQuestionsData],
   );
   return (
-    <QuestionsContext.Provider
-      value={providerValue}
-    ></QuestionsContext.Provider>
+    <QuestionsContext.Provider value={providerValue}>
+      {children}
+    </QuestionsContext.Provider>
   );
 }
-
-export default QuestionsProvider;
