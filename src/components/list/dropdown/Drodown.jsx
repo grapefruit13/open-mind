@@ -26,11 +26,20 @@ const Div = styled.div`
 
 const Position = styled.div`
   position: relative;
+  cursor: ${({ $isClicked }) => ($isClicked ? 'pointer' : 'default')};
 `;
 
 function Dropdown({ setSelectedMenuState }) {
   const [view, setView] = useState(false);
   const [dropDownState, setDropDownState] = useState('이름순');
+  const [isClicked, setIsClicked] = useState(false);
+  const handleMouseEnter = () => {
+    setIsClicked(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsClicked(false);
+  };
 
   const handleViewSelect = () => {
     setView(!view);
@@ -49,14 +58,18 @@ function Dropdown({ setSelectedMenuState }) {
 
   useEffect(() => {
     if (dropDownState === '이름순') {
-      setSelectedMenuState('이름순');
-    } else {
-      setSelectedMenuState('최신순');
+      setSelectedMenuState('name');
+    } else if (dropDownState === '최신순') {
+      setSelectedMenuState('time');
     }
   }, [dropDownState, setSelectedMenuState]);
 
   return (
-    <Position>
+    <Position
+      $isClicked={isClicked}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <Div
         onClick={handleViewSelect}
         onBlur={handleBlurContainer}

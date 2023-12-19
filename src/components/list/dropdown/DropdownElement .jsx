@@ -12,13 +12,13 @@ const StyledElement = styled.p`
   font-size: 1.4rem;
   font-style: normal;
   font-weight: 500;
-  ${({ dropDownState, element }) =>
-    dropDownState === element ? selectedStyle : ''}
+  ${({ $dropDownState, $element }) =>
+    $dropDownState === $element ? selectedStyle : ''}
 `;
 
 function DropdownElement({ $dropDownState, $element }) {
   return (
-    <StyledElement dropDownState={$dropDownState} element={$element}>
+    <StyledElement $dropDownState={$dropDownState} $element={$element}>
       {$element}
     </StyledElement>
   );
