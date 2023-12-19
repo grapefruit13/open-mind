@@ -149,16 +149,16 @@ async function getDataByLimit(limit, offset, sort) {
   }
 }
 
-async function getDataByUrl(url) {
-  try {
-    const response = await axios.get(
-      `https://openmind-api.vercel.app/2-2/subjects/${url}`,
-    );
-    return response.data;
-  } catch (e) {
-    throw Error(`getData에서 ${e} 발생`);
-  }
-}
+// async function getDataByUrl(url) {
+//   try {
+//     const response = await axios.get(
+//       `https://openmind-api.vercel.app/2-2/subjects/${url}`,
+//     );
+//     return response.data;
+//   } catch (e) {
+//     throw Error(`getData에서 ${e} 발생`);
+//   }
+// }
 
 function QuestionListPage() {
   const [selectedMenuState, setSelectedMenuState] = useState('name');

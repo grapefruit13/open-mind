@@ -1,6 +1,4 @@
-import { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { DropdownContext } from '../../utils/contexts/context';
 
 const Div = styled.div`
   box-sizing: content-box;
@@ -39,29 +37,14 @@ export default function InputTextarea({
   marginbottom,
   type,
   content,
-  // onChangeInput,
+  onChangeInput,
 }) {
-  const { setInputTextarea } = useContext(DropdownContext);
-  const [, setInputState] = useState('');
-
-  const handleInputChange = e => {
-    setInputState(e.target.value);
-    setInputTextarea(e.target.value);
-    if (!e.target.value) {
-      setInputState(prev => ({ ...prev, hasValue: false }));
-    }
-  };
-
-  // useEffect(() => {
-  //   setInputTextarea(prev => ({ ...prev, ...inputState }));
-  // }, [inputState, setInputTextarea]);
-
   return (
     <Div height={height} marginbottom={marginbottom}>
       <Textarea
         type="text"
         placeholder={`${type}을 입력해주세요`}
-        onChange={handleInputChange}
+        onChange={e => onChangeInput(e.target.value)}
         defaultValue={content}
       />
     </Div>

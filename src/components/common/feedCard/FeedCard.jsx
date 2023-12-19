@@ -25,7 +25,7 @@ const Container = styled.div`
   box-shadow: var(--shadow-1pt);
 `;
 
-export default function FeedCard({ question, user }) {
+export default function FeedCard({ question }) {
   const { pathname } = useLocation();
   const path = pathname.split('/')[3];
   const [isKebabClicked, setIsKebabClicked] = useState(false);
@@ -185,7 +185,6 @@ export default function FeedCard({ question, user }) {
         ) : (
           <AnswerSection
             answer={question.answer}
-            user={user}
             path={path}
             editMode={editMode}
             onClickComplete={onClickComplete}

@@ -1,5 +1,6 @@
+import { useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useContext } from 'react';
 import UserProfileImg from '../userInfo/UserProfileImg';
 import UserName from '../userInfo/UserName';
 import DatesAgo from './DatesAgo';
@@ -8,6 +9,7 @@ import InputTextarea from '../InputTextarea';
 import ButtonBox from '../button/ButtonBox';
 import { DropdownContext } from '../../../utils/contexts/context';
 import AnswerRejected from './AnswerRejected';
+import { UserContext } from '../../../utils/contexts/user';
 
 const Container = styled.div`
   display: flex;
@@ -30,14 +32,26 @@ const FlexRow = styled.div`
   flex: 1 0 0;
 `;
 
-// user 데이터를 끌고와야 함. 이 때, props drilling이 심하므로 contextAPI 도입 논의 필요
 export default function AnswerSection({
   answer,
-  user,
   path,
   editMode,
   onClickComplete,
 }) {
+  const { user, handleUserData } = useContext(UserContext);
+  console.log(user); // bad
+
+  // QuestionFeedPage에서 user가 params로 인해 동적으로 변함.
+  // 따라서 이쪽에서도 또 params로 받아서 handleUserData 하면 ContextAPI의 의미가 있는가?
+  // 다른 구현 방법은?
+  const params = useParams();
+  const subjectId = params.id;
+
+  useEffect(() => {
+    const getUser = handleUserData(subjectId);
+    console.log(getUser);
+  });
+
   const { inputTextarea, isCompleted } = useContext(DropdownContext);
 
   // 답변 완료 버튼 누르면 clickedBtns에 answered: true 넣어줌

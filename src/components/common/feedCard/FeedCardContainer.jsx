@@ -30,7 +30,7 @@ const CountQuestion = styled.div`
   line-height: 2.5rem;
 `;
 
-export default function FeedCardContainer({ user }) {
+export default function FeedCardContainer() {
   const { questions } = useContext(QuestionsContext);
   // const [data, setData] = useState({});
 
@@ -68,9 +68,7 @@ export default function FeedCardContainer({ user }) {
             <span>{questions.length}개의 질문이 있습니다.</span>
           </CountQuestion>
           {questions.map(question => {
-            return (
-              <FeedCard key={question.id} question={question} user={user} />
-            );
+            return <FeedCard key={question.id} question={question} />;
           })}
         </Container>
       ) : (

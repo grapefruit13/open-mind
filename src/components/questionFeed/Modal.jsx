@@ -102,7 +102,7 @@ export default function Modal({ user, handleModal }) {
   const { getQuestions } = useContext(QuestionsContext);
 
   const handleInputChange = input => {
-    setInputValue(input.value);
+    setInputValue(input);
   };
 
   const handleSubmitButton = async () => {

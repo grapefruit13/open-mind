@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import styled, { css } from 'styled-components';
 
 const StyledButton = styled.button`
@@ -78,26 +78,30 @@ const StyledButton = styled.button`
     `}
 `;
 
-function ButtonBox({ children, disabled, outline, small, onClickBtnInput }) {
-  // 버튼이 클릭됐는지, 안 됐는지
-  const [, setClicked] = useState(false);
+export default function ButtonBox({
+  children,
+  disabled,
+  outline,
+  small,
+  onClickQuestionButton,
+  // onClickBtnInput,
+}) {
+  // const [, setClicked] = useState();
 
-  const handleClick = () => {
-    setClicked(true);
-    onClickBtnInput(true);
-    // console.log('clicked');
-  };
+  // const handleClick = () => {
+  //   setClicked(true);
+  //   onClickBtnInput(true);
+  //   // console.log('clicked');
+  // };
 
   return (
     <StyledButton
       disabled={disabled}
       $outline={outline}
       $small={small}
-      onClick={handleClick}
+      onClick={onClickQuestionButton}
     >
       {children}
     </StyledButton>
   );
 }
-
-export default ButtonBox;

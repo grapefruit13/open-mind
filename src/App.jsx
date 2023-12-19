@@ -6,19 +6,22 @@ import HomePage from './pages/HomePage';
 import QuestionListPage from './pages/QuestionListPage';
 import QuestionFeedPage from './pages/QuestionFeedPage';
 import AnswerPage from './pages/AnswerPage';
+import UserProvider from './utils/contexts/user';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/list" element={<QuestionListPage />} />
-          <Route path="/post/:id" element={<QuestionFeedPage />} />
-          <Route path="/post/:id/answer" element={<AnswerPage />} />
-        </Routes>
-      </BrowserRouter>
+      <UserProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/list" element={<QuestionListPage />} />
+            <Route path="/post/:id" element={<QuestionFeedPage />} />
+            <Route path="/post/:id/answer" element={<AnswerPage />} />
+          </Routes>
+        </BrowserRouter>
+      </UserProvider>
     </ThemeProvider>
   );
 }
