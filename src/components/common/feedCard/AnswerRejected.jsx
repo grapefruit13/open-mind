@@ -9,6 +9,6 @@ const Rejected = styled.div`
   font-weight: 400;
   line-height: 22px;
 `;
-export default function AnswerRejected({ msg }) {
-  return <Rejected>{msg}</Rejected>;
+export default function AnswerRejected() {
+  return <Rejected>답변 거절</Rejected>;
 }

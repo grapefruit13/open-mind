@@ -1,5 +1,6 @@
 // import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useState } from 'react';
 import Badge from '../Badge';
 import More from '../../../assets/svgComponents/More';
 
@@ -18,29 +19,25 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-// export default function AnswerStatusKebab({ page, onClickInput }) {
-export default function AnswerStatusKebab({ path, answer }) {
-  // const [isKebabCliked, setIsKebabCliked] = useState(false);
+export default function AnswerStatusKebab({ path, answer, onClickKebab }) {
+  const [isKebabCliked, setIsKebabCliked] = useState(false);
 
-  // const handleKebabClick = () => {
-  //   setIsKebabCliked(true);
-  // };
-
-  // useEffect(() => {
-  //   onClickInput(isKebabCliked);
-  // }, [isKebabCliked]);
+  const handleKebabClick = () => {
+    if (!isKebabCliked) {
+      setIsKebabCliked(true);
+      onClickKebab(true);
+    } else {
+      setIsKebabCliked(false);
+      onClickKebab(false);
+    }
+  };
 
   return (
     <Container>
-      {answer === null ? (
-        <Badge badgeText="미답변" />
-      ) : (
-        <Badge badgeText="답변 완료" />
-      )}
+      {!answer ? <Badge badgeText="미답변" /> : <Badge badgeText="답변 완료" />}
 
       {path === 'answer' && (
-        // <Button onClick={handleKebabClick}>
-        <Button>
+        <Button onClick={handleKebabClick}>
           <More />
         </Button>
       )}
