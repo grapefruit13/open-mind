@@ -57,6 +57,14 @@ const StyledButton = styled.button`
       font-size: 1rem;
       padding: 0;
     `}
+    
+    ${props =>
+    props.$feed &&
+    css`
+      width: 100%;
+      font-size: 2rem;
+      padding: 0;
+    `}
 `;
 
 export default function ButtonFloating({
@@ -64,6 +72,7 @@ export default function ButtonFloating({
   large,
   small,
   xsmall,
+  feed,
   onClickButton,
 }) {
   return (
@@ -71,6 +80,7 @@ export default function ButtonFloating({
       $large={large}
       $small={small}
       $xsmall={xsmall}
+      $feed={feed}
       onClick={onClickButton}
     >
       {children}
