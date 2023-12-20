@@ -8,8 +8,8 @@ import ButtonFloating from '../components/common/button/ButtonFloating';
 // import { SUBJECT_URL } from '../utils/constants/apiUrl';
 import Modal from '../components/questionFeed/Modal';
 // import { QuestionsContext } from '../utils/contexts/context';
-import { UserContext } from '../utils/contexts/user';
-import { QuestionsContext } from '../utils/contexts/questions';
+import { UserContext } from '../utils/contexts/UserProvider';
+import { QuestionsContext } from '../utils/contexts/QuestionsProvider';
 
 const Container = styled.div`
   width: 100%;
@@ -33,8 +33,8 @@ export default function QuestionFeedPage() {
 
   const { user, handleUserData } = useContext(UserContext);
   const { questions, handleQuestionsData } = useContext(QuestionsContext);
-  console.log(user); // 여기서는 잘 동작하나, 하위는 parasm로 인해 정상 동작 안 함(ex.AnswerSection.jsx)
-  console.log(questions); // 정적이기 때문에 하위에서도 잘 동작함.
+  // console.log(user); // 여기서는 잘 동작하나, 하위는 parasm로 인해 정상 동작 안 함(ex.AnswerSection.jsx)
+  // console.log(questions); // 정적이기 때문에 하위에서도 잘 동작함.
 
   const params = useParams();
   const subjectId = params.id;

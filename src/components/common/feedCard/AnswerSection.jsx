@@ -9,7 +9,7 @@ import InputTextarea from '../InputTextarea';
 import ButtonBox from '../button/ButtonBox';
 import { DropdownContext } from '../../../utils/contexts/context';
 import AnswerRejected from './AnswerRejected';
-import { UserContext } from '../../../utils/contexts/user';
+import { UserContext } from '../../../utils/contexts/UserProvider';
 
 const Container = styled.div`
   display: flex;

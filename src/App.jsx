@@ -6,8 +6,8 @@ import HomePage from './pages/HomePage';
 import QuestionListPage from './pages/QuestionListPage';
 import QuestionFeedPage from './pages/QuestionFeedPage';
 import AnswerPage from './pages/AnswerPage';
-import UserProvider from './utils/contexts/user';
-import QuestionsProvider from './utils/contexts/questions';
+import UserProvider from './utils/contexts/UserProvider';
+import QuestionsProvider from './utils/contexts/QuestionsProvider';
 
 function App() {
   return (

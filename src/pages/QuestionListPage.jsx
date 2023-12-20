@@ -138,28 +138,6 @@ const PageNums = styled.p`
   color: var(--Grayscale-40, #818181);
 `;
 
-async function getDataByLimit(limit, offset, sort) {
-  try {
-    const response = await axios.get(
-      `https://openmind-api.vercel.app/2-2/subjects/?limit=${limit}&offset=${offset}&sort=${sort}`,
-    );
-    return response.data;
-  } catch (e) {
-    throw Error(`getData에서 ${e} 발생`);
-  }
-}
-
-// async function getDataByUrl(url) {
-//   try {
-//     const response = await axios.get(
-//       `https://openmind-api.vercel.app/2-2/subjects/${url}`,
-//     );
-//     return response.data;
-//   } catch (e) {
-//     throw Error(`getData에서 ${e} 발생`);
-//   }
-// }
-
 function QuestionListPage() {
   const [selectedMenuState, setSelectedMenuState] = useState('name');
   const [userId, setUserId] = useState('null');
@@ -171,6 +149,17 @@ function QuestionListPage() {
   const [currentPageBlock, setCurrentPageBlock] = useState(0);
   const [totalPageBlock, setTotalPageBlock] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
+
+  async function getDataByLimit(limit, offset, sort) {
+    try {
+      const response = await axios.get(
+        `https://openmind-api.vercel.app/2-2/subjects/?limit=${limit}&offset=${offset}&sort=${sort}`,
+      );
+      return response.data;
+    } catch (e) {
+      throw Error(`getData에서 ${e} 발생`);
+    }
+  }
 
   const handleMouseEnter = () => {
     setIsClicked(true);

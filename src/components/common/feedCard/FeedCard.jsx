@@ -12,7 +12,7 @@ import {
   // QuestionsContext,
   DropdownContext,
 } from '../../../utils/contexts/context';
-import { QuestionsContext } from '../../../utils/contexts/questions';
+import { QuestionsContext } from '../../../utils/contexts/QuestionsProvider';
 
 const Container = styled.div`
   position: relative;
