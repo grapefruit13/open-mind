@@ -1,8 +1,11 @@
 import styled from 'styled-components';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Logo from '../../../assets/svgComponents/Logo';
 import UserProfileImg from '../userInfo/UserProfileImg';
 import UserName from '../userInfo/UserName';
 import ButtonShare from '../button/ButtonShare';
+import { BASE_URL } from '../../../utils/constants/apiUrl';
 
 const Container = styled.div`
   text-align: center;
@@ -11,7 +14,27 @@ const Container = styled.div`
   padding-top: 5rem;
 `;
 
-function UserProfile({ userName, userProfileImg }) {
+export default function UserProfile({ userName, userProfileImg }) {
+  const [shareIconClicked, setShareIconClicked] = useState(false);
+  const { pathname } = useLocation();
+
+  const handleCopyClipBoard = async text => {
+    if (!shareIconClicked) return;
+    console.log('복사');
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
+  const handleShareIconClicked = () => {
+    setShareIconClicked(true);
+  };
+
+  useEffect(() => {
+    handleCopyClipBoard(`${BASE_URL}${pathname}`);
+  }, [shareIconClicked]);
+
   return (
     <Container>
       <Logo />
@@ -22,9 +45,7 @@ function UserProfile({ userName, userProfileImg }) {
         $margin="1.2rem auto"
       />
       <UserName userName={userName} size="3.2rem" />
-      <ButtonShare />
+      <ButtonShare onClickIcon={handleShareIconClicked} />
     </Container>
   );
 }
-
-export default UserProfile;
