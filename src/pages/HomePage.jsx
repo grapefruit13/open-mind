@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import logo from '../../public/assets/logo.svg';
@@ -123,10 +123,12 @@ export default function HomePage() {
     <Wrapper>
       <WrapperGrid>
         <ButtonWrapper>
-          <ButtonBox outline small={isSmallScreen}>
-            답변하러 가기
-            <ArrowRight />
-          </ButtonBox>
+          <Link to="/list">
+            <ButtonBox outline small={isSmallScreen}>
+              질문하러 가기
+              <ArrowRight />
+            </ButtonBox>
+          </Link>
         </ButtonWrapper>
         <LogoImage src={logo} alt="Logo" />
         <UserInfoContainer>
