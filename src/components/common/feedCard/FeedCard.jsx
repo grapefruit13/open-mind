@@ -93,12 +93,7 @@ export default function FeedCard({ question }) {
   // 답변 수정
   const handlePutAnswer = useCallback(async () => {
     try {
-      const result = await putAnswer(
-        'answers/',
-        question.answer.id,
-        inputTextarea,
-        false,
-      );
+      await putAnswer('answers/', question.answer.id, inputTextarea, false);
       handleQuestionsData(question.subjectId);
       setClickedDropdown({ edited: false });
     } catch (e) {
@@ -209,7 +204,7 @@ export default function FeedCard({ question }) {
           />
         )}
         <Devider />
-        <ReactionButtons like={question.like} dislike={question.dislike} />
+        <ReactionButtons question={question} />
       </Container>
     </FeedCardContext.Provider>
   );

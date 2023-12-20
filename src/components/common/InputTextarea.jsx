@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 const Div = styled.div`
   box-sizing: content-box;
-  height: ${props => props.height};
+  height: ${props => props.$height};
   padding: 1.6rem;
-  margin-bottom: ${props => props.marginbottom};
+  margin-bottom: ${props => props.$marginbottom};
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -40,7 +40,7 @@ export default function InputTextarea({
   onChangeInput,
 }) {
   return (
-    <Div height={height} marginbottom={marginbottom}>
+    <Div $height={height} $marginbottom={marginbottom}>
       <Textarea
         type="text"
         placeholder={`${type}을 입력해주세요`}

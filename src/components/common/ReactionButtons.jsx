@@ -1,14 +1,16 @@
 import { useState } from 'react';
+import axios from 'axios';
 import styled, { css } from 'styled-components';
 import LikeIcon from '../../assets/svgComponents/LikeIcon';
 import DislikeIcon from '../../assets/svgComponents/DislikeIcon';
+import { QUESTION_URL } from '../../utils/constants/apiUrl';
 
 const Container = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const ReactButton = styled.div`
+const ReactionButton = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -23,9 +25,15 @@ const ReactButton = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: 1.8rem;
+
+  ${props =>
+    props.$isClicked &&
+    css`
+      cursor: default;
+    `}
 `;
 
-const LikeButton = styled(ReactButton)`
+const LikeButton = styled(ReactionButton)`
   margin-right: 3.2rem;
 
   ${props =>
@@ -35,7 +43,7 @@ const LikeButton = styled(ReactButton)`
     `}
 `;
 
-const DislikeButton = styled(ReactButton)`
+const DislikeButton = styled(ReactionButton)`
   ${props =>
     props.$isDislike &&
     css`
@@ -45,31 +53,69 @@ const DislikeButton = styled(ReactButton)`
 
 const Counter = styled.div``;
 
-function ReactionButtons({ like, dislike }) {
-  const [isLike, setIsLike] = useState(false);
-  const [isDislike, setIsDislike] = useState(false);
+function ReactionButtons({ question }) {
+  const [reactionState, setReactionState] = useState(
+    localStorage.getItem(`${question.id}Of${question.subjectId}`),
+  );
+  const [likeCount, setLikeCount] = useState(question.like);
+  const [dislikeCount, setDislikeCount] = useState(question.dislike);
 
-  const onClickLikeButton = () => {
-    if (isDislike) setIsDislike(prev => !prev);
-    setIsLike(prev => !prev);
+  const setReactStateInLocalStoraget = reactinType => {
+    localStorage.setItem(
+      `${question.id}Of${question.subjectId}`,
+      `${reactinType}`,
+    );
   };
 
-  const onClickDislikeButton = () => {
-    if (isLike) setIsLike(prev => !prev);
-    setIsDislike(prev => !prev);
+  const updateReactionCount = async reactionType => {
+    await axios.get(`${QUESTION_URL}${question.id}/`).then(data => {
+      // console.log(data.data);
+      if (reactionType === 'like') {
+        setLikeCount(data.data.like);
+      }
+      if (reactionType === 'dislike') {
+        setDislikeCount(data.data.dislike);
+      }
+    });
+  };
+
+  const handleReaction = async reactionType => {
+    if (localStorage.getItem(`${question.id}Of${question.subjectId}`)) {
+      return;
+    }
+    try {
+      await axios.post(`${QUESTION_URL}${question.id}/reaction/`, {
+        type: reactionType,
+      });
+      setReactStateInLocalStoraget(reactionType);
+      setReactionState(
+        localStorage.getItem(`${question.id}Of${question.subjectId}`),
+      );
+      updateReactionCount(reactionType);
+    } catch (error) {
+      throw Error(`Reactin ${error}`);
+    }
   };
 
   return (
     <Container>
-      <LikeButton $isLike={isLike} onClick={onClickLikeButton}>
+      <LikeButton
+        $isLike={reactionState === 'like'}
+        $isClicked={reactionState}
+        onClick={() => handleReaction('like')}
+      >
         <LikeIcon />
         <p>좋아요</p>
-        <Counter>{like}</Counter>
+        <Counter>{likeCount}</Counter>
       </LikeButton>
-      <DislikeButton $isDislike={isDislike} onClick={onClickDislikeButton}>
+      <DislikeButton
+        $isDislike={reactionState === 'dislike'}
+        $isClicked={reactionState}
+        onClick={() => handleReaction('dislike')}
+      >
         <DislikeIcon />
         <p>싫어요</p>
-        <Counter>{dislike}</Counter>
+        <Counter>{dislikeCount}</Counter>
       </DislikeButton>
     </Container>
   );

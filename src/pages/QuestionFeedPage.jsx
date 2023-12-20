@@ -65,23 +65,6 @@ export default function QuestionFeedPage() {
     setIsOpendModal(prev => !prev);
   };
 
-  // const getQuestions = useCallback(async () => {
-  //   const questionsData = await getQuestionsData(
-  //     `${SUBJECT_URL}${user.id}/questions/`,
-  //   );
-  //   setQuestions([...questionsData.results]);
-  // }, [user.id]);
-
-  // useEffect(() => {
-  //   if (user.id !== undefined) {
-  //     getQuestions();
-  //   }
-  // }, [user.id, getQuestions]);
-
-  // const providerValue = useMemo(
-  //   () => ({ questions, getQuestions }),
-  //   [questions, getQuestions],
-  // );
   useEffect(() => {
     window.addEventListener('resize', handleSize);
     if (pageWidth <= 768) {
@@ -95,7 +78,6 @@ export default function QuestionFeedPage() {
   }, [pageWidth]);
 
   return (
-    // <QuestionsContext.Provider value={providerValue}>
     <Container>
       <Header
         marginBottom="19.2rem"
@@ -114,6 +96,5 @@ export default function QuestionFeedPage() {
       </ContentsWrapper>
       {isOpenedModal && <Modal user={user} handleModal={handleModal} />}
     </Container>
-    // </QuestionsContext.Provider>
   );
 }
