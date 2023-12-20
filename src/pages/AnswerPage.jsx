@@ -11,6 +11,14 @@ import { UserContext } from '../utils/contexts/UserProvider';
 const Container = styled.div`
   margin: auto;
   width: 71.6rem;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 3.2rem;
+  }
+  @media (max-width: 375px) {
+    padding: 2.4rem;
+  }
 `;
 
 const Div = styled.div`

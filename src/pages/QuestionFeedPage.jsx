@@ -15,12 +15,27 @@ const Container = styled.div`
 const ContentsWrapper = styled.div`
   width: fit-content;
   margin: 0 auto 13.6rem;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0 3.2rem;
+  }
+  @media (max-width: 375px) {
+    padding: 0 2.4rem;
+  }
 `;
 
 const ButtonWrapper = styled.div`
   position: relative;
   top: 5.8rem;
   left: 21.8rem;
+
+  @media (min-width: 769px) {
+    width: 20.8rem;
+  }
+  @media (max-width: 768px) {
+    width: 12.3rem;
+  }
 `;
 
 export default function QuestionFeedPage() {
@@ -31,6 +46,11 @@ export default function QuestionFeedPage() {
 
   const params = useParams();
   const subjectId = params.id;
+  const [pageWidth, setPageWidth] = useState(window.innerWidth);
+  const [buttonFloatingState, setButtonFloatingState] = useState(true);
+  const handleSize = () => {
+    setPageWidth(window.innerWidth);
+  };
 
   useEffect(() => {
     handleQuestionsData(subjectId);
@@ -62,6 +82,17 @@ export default function QuestionFeedPage() {
   //   () => ({ questions, getQuestions }),
   //   [questions, getQuestions],
   // );
+  useEffect(() => {
+    window.addEventListener('resize', handleSize);
+    if (pageWidth <= 768) {
+      setButtonFloatingState(false);
+    } else {
+      setButtonFloatingState(true);
+    }
+    return () => {
+      window.removeEventListener('resize', handleSize);
+    };
+  }, [pageWidth]);
 
   return (
     // <QuestionsContext.Provider value={providerValue}>
@@ -74,7 +105,11 @@ export default function QuestionFeedPage() {
       <ContentsWrapper>
         <FeedCardContainer />
         <ButtonWrapper onClick={() => setIsOpendModal(prev => !prev)}>
-          <ButtonFloating large>질문 작성하기</ButtonFloating>
+          {buttonFloatingState ? (
+            <ButtonFloating>질문 작성하기</ButtonFloating>
+          ) : (
+            <ButtonFloating>질문 작성</ButtonFloating>
+          )}
         </ButtonWrapper>
       </ContentsWrapper>
       {isOpenedModal && <Modal user={user} handleModal={handleModal} />}

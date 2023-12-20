@@ -5,14 +5,20 @@ import styled from 'styled-components';
 import logo from '../../public/assets/logo.svg';
 import ButtonBox from '../components/common/button/ButtonBox';
 import ArrowRight from '../assets/svgComponents/ArrowRight';
-import talkBg from '../../public/assets/talkbg.png';
+import talkBg from '../../public/assets/talkpeople.png';
+import background from '../../public/assets/background.jpeg';
 import InputField from '../components/home/InputField';
 // import useAxios from '../hooks/useAxios';
 import { SUBJECT_URL } from '../utils/constants/apiUrl';
 
 const Wrapper = styled.div`
   height: 100vh;
-  background: url(${talkBg}) center bottom/contain no-repeat;
+  background-image: url(${talkBg}), url(${background});
+  background-size: contain, cover;
+  background-position:
+    center bottom,
+    center;
+  background-repeat: no-repeat;
   overflow: hidden;
 `;
 

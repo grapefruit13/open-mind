@@ -10,17 +10,16 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 7rem;
-
   border-radius: 16px;
   border: 1px solid var(--Brown-20, #e4d5c9);
   background: var(--Brown-10, #f5f1ee);
 
-  @media (min-width: 376px) and (max-width: 768px) {
-    width: 70.4rem;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 0 auto;
   }
 
   @media (max-width: 375px) {
-    width: 32.7rem;
     gap: 6.6rem;
   }
 `;
