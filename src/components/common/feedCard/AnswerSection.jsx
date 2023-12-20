@@ -7,9 +7,9 @@ import DatesAgo from './DatesAgo';
 import AnswerContent from './AnswerContent';
 import InputTextarea from '../InputTextarea';
 import ButtonBox from '../button/ButtonBox';
-import { DropdownContext } from '../../../utils/contexts/context';
 import AnswerRejected from './AnswerRejected';
 import { UserContext } from '../../../utils/contexts/UserProvider';
+import FeedCardContext from '../../../utils/contexts/FeedCardProvider';
 
 const Container = styled.div`
   display: flex;
@@ -32,36 +32,30 @@ const FlexRow = styled.div`
   flex: 1 0 0;
 `;
 
-export default function AnswerSection({
-  answer,
-  path,
-  editMode,
-  onClickComplete,
-}) {
+export default function AnswerSection({ answer, path, editMode, datesAgo }) {
   const { user, handleUserData } = useContext(UserContext);
-  console.log(user); // bad
 
-  // QuestionFeedPage에서 user가 params로 인해 동적으로 변함.
-  // 따라서 이쪽에서도 또 params로 받아서 handleUserData 하면 ContextAPI의 의미가 있는가?
-  // 다른 구현 방법은?
   const params = useParams();
   const subjectId = params.id;
 
-  useEffect(() => {
-    const getUser = handleUserData(subjectId);
-    console.log(getUser);
-  });
+  const { inputTextarea, setInputTextarea, isCompleted, setIsCompleted } =
+    useContext(FeedCardContext);
 
-  const { inputTextarea, isCompleted } = useContext(DropdownContext);
-
-  // 답변 완료 버튼 누르면 clickedBtns에 answered: true 넣어줌
   const handleClickButtonBox = state => {
     if (editMode) {
-      onClickComplete({ editCompleted: state });
+      setIsCompleted({ editCompleted: state });
     } else {
-      onClickComplete({ answerCompleted: state });
+      setIsCompleted({ answerCompleted: state });
     }
   };
+
+  const handletextareaInput = state => {
+    setInputTextarea(state);
+  };
+
+  useEffect(() => {
+    handleUserData(subjectId);
+  }, []);
 
   return (
     <Container>
@@ -73,13 +67,18 @@ export default function AnswerSection({
       <FlexColumn>
         <FlexRow>
           <UserName userName={user.name} size="1.8rem" />
-          {!path && <DatesAgo text="2주전" />}
+          {!path && <DatesAgo text={datesAgo} />}
         </FlexRow>
         {!answer && path === 'answer' && !isCompleted.answerCompleted && (
           <>
-            <InputTextarea type="답변" height="18.6rem" marginbottom="0.8rem" />
+            <InputTextarea
+              type="답변"
+              height="18.6rem"
+              marginbottom="0.8rem"
+              onChangeInput={handletextareaInput}
+            />
             {inputTextarea ? (
-              <ButtonBox onClickBtnInput={handleClickButtonBox}>
+              <ButtonBox onClickButton={handleClickButtonBox}>
                 답변 완료
               </ButtonBox>
             ) : (
@@ -94,9 +93,10 @@ export default function AnswerSection({
               height="18.6rem"
               marginbottom="0.8rem"
               content={answer.content}
+              onChangeInput={handletextareaInput}
             />
             {inputTextarea ? (
-              <ButtonBox onClickBtnInput={handleClickButtonBox}>
+              <ButtonBox onClickButton={handleClickButtonBox}>
                 수정 완료
               </ButtonBox>
             ) : (

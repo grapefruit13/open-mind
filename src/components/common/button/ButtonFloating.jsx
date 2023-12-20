@@ -59,24 +59,21 @@ const StyledButton = styled.button`
     `}
 `;
 
-function ButtonFloating({ children, large, small, xsmall, onClickInput }) {
-  const [, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    setIsClicked(true);
-    onClickInput(true);
-  };
-
+export default function ButtonFloating({
+  children,
+  large,
+  small,
+  xsmall,
+  onClickButton,
+}) {
   return (
     <StyledButton
       $large={large}
       $small={small}
       $xsmall={xsmall}
-      onClick={handleClick}
+      onClick={onClickButton}
     >
       {children}
     </StyledButton>
   );
 }
-
-export default ButtonFloating;

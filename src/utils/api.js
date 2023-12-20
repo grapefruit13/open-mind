@@ -88,15 +88,7 @@ export async function deleteAllQuestion(url, questionsIds) {
     const deleteRequests = questionsIds.map(deleteId => {
       return axios.delete(`${url}${deleteId}/`);
     });
-    console.log('전체삭제 api', deleteRequests);
-
-    const responses = await Promise.all(deleteRequests);
-
-    responses.forEach(response => {
-      console.log('DELETE 응답 데이터:', response.data);
-    });
-
-    console.log('전체 삭제 api 종료');
+    await Promise.all(deleteRequests);
   } catch (e) {
     throw Error(`putAnswer ${e} 발생`);
   }

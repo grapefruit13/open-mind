@@ -138,7 +138,7 @@ const PageNums = styled.p`
   color: var(--Grayscale-40, #818181);
 `;
 
-function QuestionListPage() {
+export default function QuestionListPage() {
   const [selectedMenuState, setSelectedMenuState] = useState('name');
   const [userId, setUserId] = useState('null');
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
@@ -298,5 +298,3 @@ function QuestionListPage() {
     </Container>
   );
 }
-
-export default QuestionListPage;

@@ -7,7 +7,8 @@ import UserProfileImg from '../common/userInfo/UserProfileImg';
 import InputTextarea from '../common/InputTextarea';
 import ButtonBox from '../common/button/ButtonBox';
 import { SUBJECT_URL } from '../../utils/constants/apiUrl';
-import { QuestionsContext } from '../../utils/contexts/context';
+import { QuestionsContext } from '../../utils/contexts/QuestionsProvider';
+import { UserContext } from '../../utils/contexts/UserProvider';
 
 const StyledModal = styled.div`
   position: fixed;
@@ -96,10 +97,10 @@ const InputTextareaWrapper = styled.div`
   }
 `;
 
-export default function Modal({ user, handleModal }) {
+export default function Modal({ handleModal }) {
   const [inputValue, setInputValue] = useState('');
-
-  const { getQuestions } = useContext(QuestionsContext);
+  const { handleQuestionsData } = useContext(QuestionsContext);
+  const { user } = useContext(UserContext);
 
   const handleInputChange = input => {
     setInputValue(input);
@@ -110,9 +111,9 @@ export default function Modal({ user, handleModal }) {
       await axios.post(`${SUBJECT_URL}${user.id}/questions/`, {
         content: inputValue,
       });
-      getQuestions();
+      handleQuestionsData(user.id);
     } catch (error) {
-      console.log(error);
+      throw Error(`handleSubmitButton ${error}`);
     }
     handleModal();
   };
@@ -145,10 +146,7 @@ export default function Modal({ user, handleModal }) {
             onChangeInput={handleInputChange}
           />
         </InputTextareaWrapper>
-        <ButtonBox
-          disabled={!inputValue}
-          onClickQuestionButton={handleSubmitButton}
-        >
+        <ButtonBox disabled={!inputValue} onClickButton={handleSubmitButton}>
           질문 보내기
         </ButtonBox>
       </StyledPopup>

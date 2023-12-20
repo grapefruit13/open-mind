@@ -15,10 +15,10 @@ const Container = styled.div`
   border-radius: 5px;
 `;
 
-export default function KebabDropdown() {
+export default function KebabDropdown({ question }) {
   return (
     <Container>
-      <KebabDropdownButton>수정하기</KebabDropdownButton>
+      {question.answer && <KebabDropdownButton>수정하기</KebabDropdownButton>}
       <KebabDropdownButton>삭제하기</KebabDropdownButton>
       <KebabDropdownButton>거절하기</KebabDropdownButton>
     </Container>

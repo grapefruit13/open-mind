@@ -83,23 +83,14 @@ export default function ButtonBox({
   disabled,
   outline,
   small,
-  onClickQuestionButton,
-  // onClickBtnInput,
+  onClickButton,
 }) {
-  // const [, setClicked] = useState();
-
-  // const handleClick = () => {
-  //   setClicked(true);
-  //   onClickBtnInput(true);
-  //   // console.log('clicked');
-  // };
-
   return (
     <StyledButton
       disabled={disabled}
       $outline={outline}
       $small={small}
-      onClick={onClickQuestionButton}
+      onClick={onClickButton}
     >
       {children}
     </StyledButton>

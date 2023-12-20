@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
-import { useState, useEffect, useContext, useMemo } from 'react';
+import { useState, useEffect, useContext, useMemo, useCallback } from 'react';
 import QuestionSection from './QuestionSection';
 import AnswerStatusKebab from './AnswerStatusKebab';
 import AnswerSection from './AnswerSection';
@@ -8,10 +8,8 @@ import Devider from './Devider';
 import ReactionButtons from '../ReactionButtons';
 import KebabDropdown from './KebabDropdown';
 import { deleteQuestion, postAnswer, putAnswer } from '../../../utils/api';
-import {
-  // QuestionsContext,
-  DropdownContext,
-} from '../../../utils/contexts/context';
+import FeedCardContext from '../../../utils/contexts/FeedCardProvider';
+import calCreatedAt from '../../../utils/calCreatedDate';
 import { QuestionsContext } from '../../../utils/contexts/QuestionsProvider';
 
 const Container = styled.div`
@@ -41,8 +39,21 @@ export default function FeedCard({ question }) {
   });
   const [editMode, setEditMode] = useState(false);
   const [inputTextarea, setInputTextarea] = useState('');
+  const [questionDatesAgo, setQuestionDatesAgo] = useState('');
+  const [answerDatesAgo, setAnswerDatesAgo] = useState('');
+  const { handleQuestionsData } = useContext(QuestionsContext);
 
-  const { getQuestions } = useContext(QuestionsContext);
+  const handleCalCreatedAt = useCallback(() => {
+    if (!question.createdAt) return;
+    setQuestionDatesAgo(calCreatedAt(question.createdAt));
+    if (!question.answer) return;
+    setAnswerDatesAgo(calCreatedAt(question.answer?.createdAt));
+  }, [
+    question.createdAt,
+    question.answer,
+    setQuestionDatesAgo,
+    setAnswerDatesAgo,
+  ]);
 
   const onClickKebab = state => {
     setIsKebabClicked(state);
@@ -52,24 +63,35 @@ export default function FeedCard({ question }) {
     setIsCompleted(state);
   };
 
+  const feedcardProviderValue = useMemo(
+    () => ({
+      setClickedDropdown,
+      setIsCompleted,
+      isCompleted,
+      inputTextarea,
+      setInputTextarea,
+    }),
+    [
+      setClickedDropdown,
+      setIsCompleted,
+      isCompleted,
+      inputTextarea,
+      setInputTextarea,
+    ],
+  );
+
   // 답변 달기
-  const handlePostAnswer = async () => {
+  const handlePostAnswer = useCallback(async () => {
     try {
-      const result = await postAnswer(
-        'questions/',
-        question.id,
-        inputTextarea,
-        false,
-      );
-      getQuestions();
-      console.log('답변 달기 결과(handlePostAnswer)', result);
+      await postAnswer('questions/', question.id, inputTextarea, false);
+      handleQuestionsData(question.subjectId);
     } catch (e) {
-      throw Error(`AnswerSection의 postAnswers에서 ${e}발생`);
+      throw new Error(`AnswerSection의 postAnswers에서 ${e}발생`);
     }
-  };
+  }, [question.id, inputTextarea, handleQuestionsData]);
 
   // 답변 수정
-  const handlePutAnswer = async () => {
+  const handlePutAnswer = useCallback(async () => {
     try {
       const result = await putAnswer(
         'answers/',
@@ -77,110 +99,104 @@ export default function FeedCard({ question }) {
         inputTextarea,
         false,
       );
-      getQuestions();
-      console.log(`답변 수정 결과(handlePutAnswer)`, result);
+      handleQuestionsData(question.subjectId);
+      setClickedDropdown({ edited: false });
     } catch (e) {
-      throw Error(`AnswerSection의 handlePutAnswer ${e}발생`);
+      throw new Error(`AnswerSection의 handlePutAnswer ${e}발생`);
     }
-  };
+  }, [question.answer?.id, inputTextarea, handleQuestionsData]);
 
   // 질문 삭제
-  const handleDeleteQuestion = async () => {
+  const handleDeleteQuestion = useCallback(async () => {
     try {
-      const result = await deleteQuestion('questions/', question.id);
-      console.log('질문 삭제 결과(handleDeleteQuestion)', result);
-      getQuestions();
+      await deleteQuestion('questions/', question.id);
+      handleQuestionsData(question.subjectId);
     } catch (e) {
-      throw Error(`AnswerSection의 postAnswers에서 ${e}발생`);
+      throw new Error(`AnswerSection의 postAnswers에서 ${e}발생`);
     }
-  };
+  }, [question.id, handleQuestionsData]);
 
   // 답변 거절
-  const handleReject = async () => {
+  const handleReject = useCallback(async () => {
     try {
       if (!question.answer) {
-        const result = await postAnswer(
-          'questions/',
-          question.id,
-          '답변 거절',
-          true,
-        );
-        getQuestions();
-        console.log(
-          'handleReject postAnswer의 rejected 여부',
-          result.isRejected,
-        );
+        await postAnswer('questions/', question.id, '답변 거절', true);
+        handleQuestionsData(question.subjectId);
       } else {
-        const result = await putAnswer(
+        await putAnswer(
           'answers/',
           question.answer.id,
           '답변 있는 상태에서 거절합니다.',
           true,
         );
-        getQuestions();
-        console.log(
-          'handleReject putAnswer의 rejected 여부',
-          result.isRejected,
-        );
+        handleQuestionsData(question.subjectId);
       }
     } catch (e) {
-      throw Error(`handleReject postAnswers에서 ${e}발생`);
+      throw new Error(`handleReject postAnswers에서 ${e}발생`);
     }
-  };
+  }, [question.answer, question.subjectId]);
 
-  // 드롭다운 수정하기, 삭제하기, 거절하기 처리
-  const handleClickedDropdown = () => {
+  const handleClickedDropdown = useCallback(() => {
     if (clickedDropdown.edited) {
       setEditMode(true);
     } else if (clickedDropdown.deleted) {
-      console.log('delete 요청 보내');
+      setEditMode(false);
       handleDeleteQuestion();
     } else if (clickedDropdown.rejected) {
-      console.log('rejected 수정하기 요청 보내');
+      setEditMode(false);
       handleReject();
     }
-  };
+    setIsKebabClicked(false);
+  }, [clickedDropdown, setEditMode, handleDeleteQuestion]);
 
-  // 답변 완료, 수정 완료 버튼 클릭시
-  const handleIsCompleted = () => {
+  const handleIsCompleted = useCallback(() => {
     if (isCompleted.answerCompleted) {
-      console.log('답변 완료 됐으니 보내');
       handlePostAnswer();
     } else if (isCompleted.editCompleted) {
-      console.log('수정 완료 됐으니 보내');
       handlePutAnswer();
       setEditMode(false);
     }
-  };
+  }, [
+    isCompleted.answerCompleted,
+    isCompleted.editCompleted,
+    handlePostAnswer,
+    handlePutAnswer,
+  ]);
+
+  useEffect(() => {
+    handleCalCreatedAt();
+  }, [question.createdAt, handleCalCreatedAt]);
+
+  useEffect(() => {
+    if (isCompleted.answerCompleted || isCompleted.editCompleted) {
+      setIsCompleted({
+        answerCompleted: false,
+        editCompleted: false,
+      });
+    }
+  }, [isCompleted.answerCompleted, isCompleted.editCompleted, setIsCompleted]);
 
   useEffect(() => {
     handleClickedDropdown();
-  }, [clickedDropdown]);
+  }, [clickedDropdown, handleClickedDropdown]);
 
   useEffect(() => {
     handleIsCompleted();
-  }, [isCompleted]);
-
-  const providerValue = useMemo(
-    () => ({
-      setClickedDropdown,
-      inputTextarea,
-      setInputTextarea,
-      isCompleted,
-    }),
-    [setClickedDropdown, inputTextarea, setInputTextarea, isCompleted],
-  );
+  }, [isCompleted, handleIsCompleted]);
 
   return (
-    <DropdownContext.Provider value={providerValue}>
+    <FeedCardContext.Provider value={feedcardProviderValue}>
       <Container>
         <AnswerStatusKebab
           answer={question.answer}
           path={path}
           onClickKebab={onClickKebab}
         />
-        {isKebabClicked && <KebabDropdown />}
-        <QuestionSection questionContent={question.content} />
+        {isKebabClicked && <KebabDropdown question={question} />}
+        <QuestionSection
+          questionContent={question.content}
+          datesAgo={questionDatesAgo}
+        />
         {path !== 'answer' && !question.answer ? (
           ''
         ) : (
@@ -189,11 +205,12 @@ export default function FeedCard({ question }) {
             path={path}
             editMode={editMode}
             onClickComplete={onClickComplete}
+            datesAgo={answerDatesAgo}
           />
         )}
         <Devider />
         <ReactionButtons like={question.like} dislike={question.dislike} />
       </Container>
-    </DropdownContext.Provider>
+    </FeedCardContext.Provider>
   );
 }

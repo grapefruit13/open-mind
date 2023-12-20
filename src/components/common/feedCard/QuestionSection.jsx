@@ -9,10 +9,10 @@ const Container = styled.div`
   gap: 0.4rem;
 `;
 
-export default function QuestionSection({ questionContent }) {
+export default function QuestionSection({ questionContent, datesAgo }) {
   return (
     <Container>
-      <DatesAgo text="질문 · 2주전" />
+      <DatesAgo text={`질문 · ${datesAgo}`} />
       <QuestionText text={questionContent} />
     </Container>
   );

@@ -111,7 +111,6 @@ export default function HomePage() {
         team: '2-2',
       })
       .then(({ data }) => {
-        // console.log(data);
         localStorage.setItem('userData', JSON.stringify(data));
         navigate(`/post/${data.id}/answer`);
       })
@@ -132,9 +131,7 @@ export default function HomePage() {
         <LogoImage src={logo} alt="Logo" />
         <UserInfoContainer>
           <InputField onChangeUserNameInput={handleUserNameInput} />
-          <ButtonBox onClickQuestionButton={handleQuestionButton}>
-            질문 하기
-          </ButtonBox>
+          <ButtonBox onClickButton={handleQuestionButton}>질문 하기</ButtonBox>
         </UserInfoContainer>
       </WrapperGrid>
     </Wrapper>

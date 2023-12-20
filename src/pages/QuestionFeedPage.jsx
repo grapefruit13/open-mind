@@ -4,10 +4,7 @@ import styled from 'styled-components';
 import Header from '../components/common/header/Header';
 import FeedCardContainer from '../components/common/feedCard/FeedCardContainer';
 import ButtonFloating from '../components/common/button/ButtonFloating';
-// import { getQuestionsData } from '../utils/api';
-// import { SUBJECT_URL } from '../utils/constants/apiUrl';
 import Modal from '../components/questionFeed/Modal';
-// import { QuestionsContext } from '../utils/contexts/context';
 import { UserContext } from '../utils/contexts/UserProvider';
 import { QuestionsContext } from '../utils/contexts/QuestionsProvider';
 
@@ -27,14 +24,10 @@ const ButtonWrapper = styled.div`
 `;
 
 export default function QuestionFeedPage() {
-  // const [user, setUser] = useState({});
   const [isOpenedModal, setIsOpendModal] = useState(false);
-  // const [questions, setQuestions] = useState([]);
 
   const { user, handleUserData } = useContext(UserContext);
-  const { questions, handleQuestionsData } = useContext(QuestionsContext);
-  // console.log(user); // 여기서는 잘 동작하나, 하위는 parasm로 인해 정상 동작 안 함(ex.AnswerSection.jsx)
-  // console.log(questions); // 정적이기 때문에 하위에서도 잘 동작함.
+  const { handleQuestionsData } = useContext(QuestionsContext);
 
   const params = useParams();
   const subjectId = params.id;
@@ -45,7 +38,8 @@ export default function QuestionFeedPage() {
 
   useEffect(() => {
     handleUserData(subjectId);
-  }, [handleUserData, subjectId]);
+    // }, [handleUserData, subjectId]);
+  }, []);
 
   const handleModal = () => {
     setIsOpendModal(prev => !prev);

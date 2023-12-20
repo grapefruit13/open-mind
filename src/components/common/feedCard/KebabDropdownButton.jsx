@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { DropdownContext } from '../../../utils/contexts/context';
+import FeedCardContext from '../../../utils/contexts/FeedCardProvider';
 
 const Button = styled.button`
   color: var(--Grayscale-50);
@@ -23,7 +23,7 @@ const Button = styled.button`
 `;
 
 export default function KebabDropdownButton({ children }) {
-  const { setClickedDropdown } = useContext(DropdownContext);
+  const { setClickedDropdown } = useContext(FeedCardContext);
 
   const handleClick = () => {
     if (children === '수정하기') {
@@ -33,7 +33,6 @@ export default function KebabDropdownButton({ children }) {
     } else if (children === '거절하기') {
       setClickedDropdown({ rejected: true });
     }
-    console.log(children);
   };
 
   return <Button onClick={handleClick}>{children}</Button>;
