@@ -31,7 +31,7 @@ const Position = styled.div`
 
 function Dropdown({ setSelectedMenuState }) {
   const [view, setView] = useState(false);
-  const [dropDownState, setDropDownState] = useState('이름순');
+  const [dropDownState, setDropDownState] = useState('최신순');
   const [isClicked, setIsClicked] = useState(false);
   const handleMouseEnter = () => {
     setIsClicked(true);

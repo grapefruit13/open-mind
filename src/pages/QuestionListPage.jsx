@@ -89,7 +89,7 @@ const Main = styled.main`
   justify-content: center;
   align-items: center;
   gap: 4rem;
-  padding: 0rem 3.2rem;
+  padding: 0rem 3.2rem 10rem;
 
   @media (min-width: 768px) and (max-width: 868px) {
     gap: 6.1rem;
@@ -135,11 +135,12 @@ const PageNums = styled.p`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: Actor;
   color: var(--Grayscale-40, #818181);
 `;
 
-export default function QuestionListPage() {
-  const [selectedMenuState, setSelectedMenuState] = useState('name');
+function QuestionListPage() {
+  const [selectedMenuState, setSelectedMenuState] = useState('time');
   const [userId, setUserId] = useState('null');
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
   const [width, setWidth] = useState(8);
@@ -175,39 +176,39 @@ export default function QuestionListPage() {
 
   const handleNextPageBlock = () => {
     if (totalPageBlock > currentPageBlock + 1) {
-      setCurrentPageBlock(currentPageBlock + 1);
-      setPage((currentPageBlock + 1) * 5 + 1);
+      const updatedState = currentPageBlock + 1;
+      setCurrentPageBlock(updatedState);
+      setPage(updatedState * 5 + 1);
     }
   };
 
   const handlePrevPageBlock = () => {
     if (currentPageBlock > 0) {
-      setCurrentPageBlock(currentPageBlock - 1);
-      setPage((currentPageBlock - 1) * 5 + 1);
+      const updatedState = currentPageBlock - 1;
+      setCurrentPageBlock(updatedState);
+      setPage(updatedState * 5 + 1);
     }
   };
 
-  const handleNextPage = () => {
-    if (page < totalPage) {
-      setPage(page + 1);
-      if ((currentPageBlock + 1) * 5 === page) {
-        setCurrentPageBlock(currentPageBlock + 1);
-      }
+  const handleLastPage = () => {
+    if (page !== totalPage) {
+      setPage(totalPage);
+      setCurrentPageBlock(totalPageBlock - 1);
     }
   };
 
-  const handlePrevPage = () => {
-    if (page > 1) {
-      setPage(page - 1);
-      if (currentPageBlock * 5 + 1 === page) {
-        setCurrentPageBlock(currentPageBlock - 1);
-      }
+  const handleFirstPage = () => {
+    if (page !== 1) {
+      setPage(1);
+      setCurrentPageBlock(0);
     }
   };
 
   useEffect(() => {
-    const id = localStorage.getItem('Id');
-    setUserId(id);
+    const id = localStorage.getItem('userData');
+    const parsedId = JSON.parse(id);
+    setUserId(parsedId?.id);
+
     window.addEventListener('resize', handleSize);
     if (pageWidth <= 868) {
       setWidth(6);
@@ -228,6 +229,10 @@ export default function QuestionListPage() {
     };
     getListData(width, (page - 1) * width, selectedMenuState);
   }, [selectedMenuState, page, width, currentPageBlock]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [selectedMenuState]);
 
   useEffect(() => {
     setTotalPageBlock(Math.ceil(totalPage / 5));
@@ -281,8 +286,8 @@ export default function QuestionListPage() {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <PageNums onClick={handlePrevPageBlock}>{'<<'}</PageNums>
-          <PageNums onClick={handlePrevPage}>{'<'}</PageNums>
+          <PageNums onClick={handleFirstPage}>{'<<'}</PageNums>
+          <PageNums onClick={handlePrevPageBlock}>{'<'}</PageNums>
           <Pagenation
             currentPageBlock={currentPageBlock}
             setCurrentPageBlock={setCurrentPageBlock}
@@ -291,10 +296,12 @@ export default function QuestionListPage() {
             setPage={setPage}
             page={page}
           />
-          <PageNums onClick={handleNextPage}>{'>'}</PageNums>
-          <PageNums onClick={handleNextPageBlock}>{'>>'}</PageNums>
+          <PageNums onClick={handleNextPageBlock}>{'>'}</PageNums>
+          <PageNums onClick={handleLastPage}>{'>>'}</PageNums>
         </PageNationContainer>
       </Main>
     </Container>
   );
 }
+
+export default QuestionListPage;
