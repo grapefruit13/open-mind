@@ -67,7 +67,7 @@ export default function AnswerSection({ answer, path, editMode, datesAgo }) {
       <FlexColumn>
         <FlexRow>
           <UserName userName={user.name} size="1.8rem" />
-          {!path && <DatesAgo text={datesAgo} />}
+          <DatesAgo text={datesAgo} />
         </FlexRow>
         {!answer && path === 'answer' && !isCompleted.answerCompleted && (
           <>
