@@ -59,8 +59,8 @@ const ButtonWrapper = styled.div`
 const Container = styled.div`
   width: 10.4rem;
   height: 4.6rem;
-  ${$mobile =>
-    $mobile &&
+  ${props =>
+    props.$mobile &&
     css`
       justify-self: end;
       align-self: end;
@@ -139,6 +139,14 @@ export default function HomePage() {
       });
   };
 
+  useEffect(() => {
+    const loginedUser = JSON.parse(localStorage.getItem('userData'));
+
+    if (loginedUser) {
+      navigate('/list');
+    }
+  }, []);
+
   return (
     <Wrapper>
       <WrapperGrid>
@@ -157,7 +165,7 @@ export default function HomePage() {
           <ButtonBox onClickButton={handleQuestionButton}>질문 하기</ButtonBox>
         </UserInfoContainer>
         {isSmallScreen && (
-          <Container mobile={isSmallScreen}>
+          <Container $mobile={isSmallScreen}>
             <ButtonLogout />
           </Container>
         )}
