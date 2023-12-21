@@ -108,18 +108,6 @@ export default function HomePage() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 767);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   const handleUserNameInput = inputValue => {
     setUserName(inputValue);
   };
@@ -135,9 +123,21 @@ export default function HomePage() {
         navigate(`/post/${data.id}/answer`);
       })
       .catch(err => {
-        console.error(err);
+        throw Error(`Homepage의 handleQuestionButton에서 ${err}`);
       });
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 767);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <Wrapper>

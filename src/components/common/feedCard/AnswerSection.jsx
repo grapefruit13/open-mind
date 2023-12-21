@@ -9,7 +9,7 @@ import InputTextarea from '../InputTextarea';
 import ButtonBox from '../button/ButtonBox';
 import AnswerRejected from './AnswerRejected';
 import { UserContext } from '../../../utils/contexts/UserProvider';
-import FeedCardContext from '../../../utils/contexts/FeedCardProvider';
+import { FeedCardContext } from '../../../utils/contexts/FeedCardProvider';
 
 const Container = styled.div`
   display: flex;
