@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import logo from '../../public/assets/logo.svg';
 import ButtonBox from '../components/common/button/ButtonBox';
 import ArrowRight from '../assets/svgComponents/ArrowRight';
@@ -10,6 +10,7 @@ import background from '../../public/assets/background.jpeg';
 import InputField from '../components/home/InputField';
 // import useAxios from '../hooks/useAxios';
 import { SUBJECT_URL } from '../utils/constants/apiUrl';
+import ButtonLogout from '../components/common/button/ButtonLogout';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -23,7 +24,7 @@ const Wrapper = styled.div`
 `;
 
 const WrapperGrid = styled.div`
-  @media (max-width: 375px) {
+  @media (max-width: 767px) {
     display: grid;
     padding: 0 3.5rem;
     grid-template-areas:
@@ -39,21 +40,32 @@ const WrapperGrid = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
   margin-top: 4.5rem;
   margin-right: 13rem;
-  grid-area: button;
 
   @media (max-width: 768px) {
     margin-top: 4.4rem;
     margin-right: 5rem;
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 767px) {
     height: 3.4rem;
     margin: 0 auto;
   }
 `;
 
+const Container = styled.div`
+  width: 10.4rem;
+  height: 4.6rem;
+  ${$mobile =>
+    $mobile &&
+    css`
+      justify-self: end;
+      align-self: end;
+    `}
+`;
 const LogoImage = styled.img`
   display: block;
   margin: 6.9rem auto 2.4rem;
@@ -64,7 +76,7 @@ const LogoImage = styled.img`
     height: auto;
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 767px) {
     width: 24rem;
     height: 9.8rem;
     margin: 8rem auto 0;
@@ -84,7 +96,7 @@ const UserInfoContainer = styled.div`
   background: var(--grayscale-10);
   grid-area: info;
 
-  @media (max-width: 375px) {
+  @media (max-width: 767px) {
     height: 15.6rem;
     padding: 2.4rem;
   }
@@ -92,11 +104,13 @@ const UserInfoContainer = styled.div`
 
 export default function HomePage() {
   const [userName, setUserName] = useState('');
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 375);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 767);
+
   const navigate = useNavigate();
+
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 375);
+      setIsSmallScreen(window.innerWidth <= 767);
     };
 
     window.addEventListener('resize', handleResize);
@@ -135,12 +149,18 @@ export default function HomePage() {
               <ArrowRight />
             </ButtonBox>
           </Link>
+          {!isSmallScreen && <ButtonLogout />}
         </ButtonWrapper>
         <LogoImage src={logo} alt="Logo" />
         <UserInfoContainer>
           <InputField onChangeUserNameInput={handleUserNameInput} />
           <ButtonBox onClickButton={handleQuestionButton}>질문 하기</ButtonBox>
         </UserInfoContainer>
+        {isSmallScreen && (
+          <Container mobile={isSmallScreen}>
+            <ButtonLogout />
+          </Container>
+        )}
       </WrapperGrid>
     </Wrapper>
   );
