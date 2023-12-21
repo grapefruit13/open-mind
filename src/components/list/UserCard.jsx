@@ -20,6 +20,7 @@ const StyledUserCard = styled.div`
     width: 6rem;
     height: 6rem;
     border-radius: 50%;
+
     @media (max-width: 767px) {
       width: 4.8rem;
       height: 4.8rem;
@@ -29,9 +30,9 @@ const StyledUserCard = styled.div`
   p.user-name {
     margin-top: 1.2rem;
     color: var(--grayscale-60);
-    font-family: Actor;
     font-size: 2rem;
     line-height: 125%;
+
     @media (max-width: 767px) {
       font-size: 1.8rem;
     }
@@ -43,6 +44,7 @@ const StyledUserCard = styled.div`
     margin-top: 2.8rem;
     align-items: center;
     color: var(--grayscale-40);
+    gap: 0.4rem;
 
     img {
       display: block;
@@ -57,6 +59,7 @@ const StyledUserCard = styled.div`
     }
     p {
       font-size: 1.6rem;
+
       @media (max-width: 767px) {
         font-size: 1.4rem;
       }
@@ -65,6 +68,7 @@ const StyledUserCard = styled.div`
       margin-right: 0;
       margin-left: auto;
       font-size: 1.6rem;
+
       @media (max-width: 767px) {
         font-size: 1.4rem;
       }
