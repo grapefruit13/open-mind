@@ -7,6 +7,9 @@ import ButtonFloating from '../components/common/button/ButtonFloating';
 import { deleteAllQuestion } from '../utils/api';
 import { QuestionsContext } from '../utils/contexts/QuestionsProvider';
 import { UserContext } from '../utils/contexts/UserProvider';
+import ToastPortal from '../components/common/ToastPortal';
+import Toast from '../components/common/Toast';
+import { ShareButtonContext } from '../utils/contexts/ShareButtonProvider';
 
 const Container = styled.div`
   margin: auto;
@@ -31,6 +34,7 @@ export default function AnswerPage() {
 
   const { user, handleUserData } = useContext(UserContext);
   const { handleQuestionsData } = useContext(QuestionsContext);
+  const { shareButtonClicked } = useContext(ShareButtonContext);
 
   const params = useParams();
   const subjectId = params.id;
@@ -67,7 +71,6 @@ export default function AnswerPage() {
     }
     handleQuestionsData(subjectId);
   }, [deleteQuestionIds]);
-  // }, [deleteQuestionIds, handleQuestionsData]);
 
   const handleAllDeleteBtnClikced = useCallback(() => {
     if (!allDeleteBtnClicked) return;
@@ -97,11 +100,11 @@ export default function AnswerPage() {
         </Div>
         {user && (
           <FeedCardContainer
-            // user={user}
             allDeleteInput={handleAllDeleteInput}
             allDeleteBtnClicked={allDeleteBtnClicked}
           />
         )}
+        <ToastPortal>{shareButtonClicked && <Toast />}</ToastPortal>
       </Container>
     </>
   );

@@ -6,9 +6,6 @@ export default function ShareButtonProvider({ children }) {
   const [shareButtonClicked, setShareButtonClicked] = useState(false);
 
   const handleCopyClipBoard = async text => {
-    // if (!shareIconClicked) return;
-    console.log('복사');
-    console.log(Location.href);
     try {
       await navigator.clipboard.writeText(text);
     } catch (e) {
@@ -17,9 +14,8 @@ export default function ShareButtonProvider({ children }) {
   };
 
   useEffect(() => {
-    // handleCopyClipBoard(`${BASE_URL}${pathname}`);
     if (!shareButtonClicked) return;
-    handleCopyClipBoard(Location.href);
+    handleCopyClipBoard(window.location.href);
   }, [shareButtonClicked]);
 
   const providerValue = useMemo(
