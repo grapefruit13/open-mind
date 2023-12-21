@@ -104,7 +104,11 @@ export default function AnswerPage() {
             allDeleteBtnClicked={allDeleteBtnClicked}
           />
         )}
-        <ToastPortal>{shareButtonClicked && <Toast />}</ToastPortal>
+        {shareButtonClicked && (
+          <ToastPortal>
+            <Toast />
+          </ToastPortal>
+        )}
       </Container>
     </>
   );

@@ -111,7 +111,11 @@ export default function QuestionFeedPage() {
         </ButtonWrapper>
       </ButtonContainer>
       {isOpenedModal && <Modal user={user} handleModal={handleModal} />}
-      <ToastPortal>{shareButtonClicked && <Toast />}</ToastPortal>
+      {shareButtonClicked && (
+        <ToastPortal>
+          <Toast />
+        </ToastPortal>
+      )}
     </Container>
   );
 }

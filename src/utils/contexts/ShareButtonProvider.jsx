@@ -13,15 +13,16 @@ export default function ShareButtonProvider({ children }) {
     }
   };
 
+  const providerValue = useMemo(
+    () => ({ shareButtonClicked, setShareButtonClicked }),
+    [shareButtonClicked, setShareButtonClicked],
+  );
+
   useEffect(() => {
     if (!shareButtonClicked) return;
     handleCopyClipBoard(window.location.href);
   }, [shareButtonClicked]);
 
-  const providerValue = useMemo(
-    () => ({ shareButtonClicked, setShareButtonClicked }),
-    [shareButtonClicked, setShareButtonClicked],
-  );
   return (
     <ShareButtonContext.Provider value={providerValue}>
       {children}
