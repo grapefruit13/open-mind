@@ -13,10 +13,10 @@ import { ShareButtonContext } from '../utils/contexts/ShareButtonProvider';
 
 const Container = styled.div`
   width: 100%;
-  padding: 0 2.4rem 2.4rem;
 `;
 
 const ContentsWrapper = styled.div`
+  position: relative;
   width: fit-content;
   margin: 0 auto 13.6rem;
 
@@ -24,24 +24,30 @@ const ContentsWrapper = styled.div`
     width: 100%;
   }
   @media (min-width: 376px) and (max-width: 767px) {
-    padding: 0 0.8rem;
+    padding: 0 3.2rem 0;
+  }
+  @media (max-width: 375px) {
+    padding: 0 2.4rem 0;
   }
 `;
 
 const ButtonWrapper = styled.div`
   width: 20.8rem;
+  height: 5.4rem;
+  position: absolute;
+  right: -21.8rem;
+  bottom: -10.6rem;
 
-  @media (min-width: 769px) {
-    width: 20.8rem;
+  @media (min-width: 768px) and (max-width: 1119px) {
+    right: 0;
   }
-  @media (max-width: 768px) {
+
+  @media (max-width: 767px) {
     width: 12.3rem;
+    right: 0;
+    bottom: -9.6rem;
+    margin: 0 3.2rem;
   }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
 `;
 
 export default function QuestionFeedPage() {
@@ -100,16 +106,14 @@ export default function QuestionFeedPage() {
       />
       <ContentsWrapper>
         <FeedCardContainer />
-      </ContentsWrapper>
-      <ButtonContainer>
         <ButtonWrapper onClick={() => setIsOpendModal(prev => !prev)}>
           {buttonFloatingState ? (
-            <ButtonFloating>질문 작성하기</ButtonFloating>
+            <ButtonFloating feed>질문 작성하기</ButtonFloating>
           ) : (
-            <ButtonFloating>질문 작성</ButtonFloating>
+            <ButtonFloating feed>질문 작성</ButtonFloating>
           )}
         </ButtonWrapper>
-      </ButtonContainer>
+      </ContentsWrapper>
       {isOpenedModal && <Modal user={user} handleModal={handleModal} />}
       {shareButtonClicked && (
         <ToastPortal>

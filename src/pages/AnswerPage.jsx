@@ -14,13 +14,15 @@ import { ShareButtonContext } from '../utils/contexts/ShareButtonProvider';
 const Container = styled.div`
   margin: auto;
   width: 71.6rem;
+  padding: 5.4rem 0 5.8rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: 768px) and (min-width: 1200px) {
     width: 100%;
-    padding: 3.2rem;
+    padding: 5.4rem 3.2rem 5.8rem;
   }
-  @media (max-width: 375px) {
-    padding: 2.4rem;
+  @media (max-width: 767px) {
+    width: 100%;
+    padding: 5.4rem 2.4rem 4.8rem;
   }
 `;
 

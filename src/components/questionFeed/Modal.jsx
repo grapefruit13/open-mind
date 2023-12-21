@@ -91,15 +91,11 @@ const RecipientContainer = styled.div`
 
 const InputTextareaWrapper = styled.div`
   margin: 1.2rem 0 0.8rem;
-  height: 14.8rem;
+  height: 18rem;
 
   @media (max-width: 767px) {
-    height: 32.2rem;
+    height: 35.8rem;
   }
-`;
-
-const ButtonBoxWrappr = styled.div`
-  margin-top: auto;
 `;
 
 export default function Modal({ handleModal }) {
@@ -151,11 +147,9 @@ export default function Modal({ handleModal }) {
             onChangeInput={handleInputChange}
           />
         </InputTextareaWrapper>
-        <ButtonBoxWrappr>
-          <ButtonBox disabled={!inputValue} onClickButton={handleSubmitButton}>
-            질문 보내기
-          </ButtonBox>
-        </ButtonBoxWrappr>
+        <ButtonBox disabled={!inputValue} onClickButton={handleSubmitButton}>
+          질문 보내기
+        </ButtonBox>
       </StyledPopup>
     </StyledModal>
   );

@@ -52,6 +52,7 @@ const StyledButton = styled.button`
     props.$feed &&
     css`
       width: 100%;
+      height: 100%;
       font-size: 2rem;
       padding: 0;
     `}

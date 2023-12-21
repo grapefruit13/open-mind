@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const Div = styled.div`
-  box-sizing: content-box;
   height: ${props => props.$height};
   padding: 1.6rem;
   margin-bottom: ${props => props.$marginbottom};
