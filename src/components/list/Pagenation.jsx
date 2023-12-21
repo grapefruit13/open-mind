@@ -10,7 +10,7 @@ const Nums = styled.p`
   align-items: center;
   color: var(--Grayscale-40, #818181);
   font-size: 2rem;
-  font-family: Actor;
+
   ${props =>
     props.$active &&
     css`

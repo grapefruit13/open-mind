@@ -32,15 +32,15 @@ const Selected = styled.div`
   ${({ $selectedOrNot }) => ($selectedOrNot ? selected : notSelected)};
 `;
 
-function DropdownSelected({ $selectedOrNot, dropDownState, isFolded }) {
+export default function DropdownSelected({
+  $selectedOrNot,
+  dropDownState,
+  isFolded,
+}) {
   return (
     <Selected $selectedOrNot={$selectedOrNot}>
-      <span>{dropDownState}</span>
-      <span>
-        <ColoredArrowImg isFolded={isFolded} />
-      </span>
+      {dropDownState}
+      <ColoredArrowImg isFolded={isFolded} />
     </Selected>
   );
 }
-
-export default DropdownSelected;

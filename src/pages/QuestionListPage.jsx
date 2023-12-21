@@ -8,6 +8,7 @@ import UserCard from '../components/list/UserCard';
 import ArrowRight from '../assets/svgComponents/ArrowRight';
 import Logo from '../components/common/Logo';
 import Pagenation from '../components/list/Pagenation';
+import ButtonLogout from '../components/common/button/ButtonLogout';
 
 const Container = styled.div``;
 
@@ -17,30 +18,43 @@ const Nav = styled.div`
   padding: 4rem 5rem 0rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+
+  @media (min-width: 768px) {
+    align-items: center;
+  }
 
   @media (max-width: 767px) {
-    padding: 4rem;
+    padding: 2.4rem;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     gap: 2rem;
   }
 `;
 
-// const Logo = styled.img`
-//   width: 14.6rem;
-//   height: 5.7rem;
-// `;
+const LogoAndLogout = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
-const ButtonSizingDiv = styled.div`
-  width: 16.3rem;
-  height: 4.6rem;
+const LogoutContainer = styled.div`
+  display: flex;
+  gap: 0.8rem;
 
-  @media (max-width: 767px) {
-    width: 16.3rem;
-    height: 4.6rem;
+  @media (min-width: 768px) {
+    align-items: center;
   }
+  @media (max-width: 767px) {
+    justify-content: center;
+  }
+`;
+
+const Flex = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Header = styled.header`
@@ -52,11 +66,15 @@ const Header = styled.header`
   gap: 1.2rem;
 
   @media (max-width: 767px) {
-    margin: 0rem;
-    padding: 5.2rem 2.4rem 1.6rem;
-
-    flex-direction: row;
+    width: 100%;
+    max-width: 50.4rem;
+    min-width: 32.7rem;
+    margin: 0;
+    padding: 5.4rem 2.4rem 1.8rem;
+    display: flex;
     justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
   }
 `;
 
@@ -109,6 +127,7 @@ const CardsContainer = styled.div`
   }
   @media (max-width: 767px) {
     grid-template: repeat(3, 16.8rem) / repeat(2, minmax(18.6rem, 22rem));
+    gap: 1.6rem;
   }
 `;
 
@@ -147,7 +166,7 @@ function QuestionListPage() {
   const [currentPageBlock, setCurrentPageBlock] = useState(0);
   const [totalPageBlock, setTotalPageBlock] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
-
+  const [isMobile, setIsMobile] = useState(false);
   async function getDataByLimit(limit, offset, sort) {
     try {
       const response = await axios.get(
@@ -212,6 +231,11 @@ function QuestionListPage() {
     } else {
       setWidth(8);
     }
+    if (pageWidth <= 768) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
 
     return () => {
       window.removeEventListener('resize', handleSize);
@@ -238,8 +262,18 @@ function QuestionListPage() {
   return (
     <Container>
       <Nav>
-        <Logo width="14.6rem" height="5.7rem" />
-        <ButtonSizingDiv>
+        {isMobile ? (
+          <LogoAndLogout>
+            <div style={{ width: '7.239rem' }} />
+            <Logo width="14.6rem" height="5.7rem" />
+            <Link to="/">
+              <ButtonLogout small={isMobile} />
+            </Link>
+          </LogoAndLogout>
+        ) : (
+          <Logo width="14.6rem" height="5.7rem" />
+        )}
+        <LogoutContainer>
           {userId ? (
             <Link to={`/post/${userId}/answer`}>
               <ButtonBox outline="outline">
@@ -255,17 +289,24 @@ function QuestionListPage() {
               </ButtonBox>
             </Link>
           )}
-        </ButtonSizingDiv>
+          {!isMobile && (
+            <Link to="/">
+              <ButtonLogout small={isMobile} />
+            </Link>
+          )}
+        </LogoutContainer>
       </Nav>
-      <Header>
-        <Title>누구에게 질문할까요?</Title>
-        <Dropdown
-          setSelectedMenuState={setSelectedMenuState}
-          $isClicked={isClicked}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        />
-      </Header>
+      <Flex>
+        <Header>
+          <Title>누구에게 질문할까요?</Title>
+          <Dropdown
+            setSelectedMenuState={setSelectedMenuState}
+            $isClicked={isClicked}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          />
+        </Header>
+      </Flex>
       <Main>
         <CardsContainer>
           {list?.results.map(item => (

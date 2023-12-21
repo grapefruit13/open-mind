@@ -29,7 +29,7 @@ const Position = styled.div`
   cursor: ${({ $isClicked }) => ($isClicked ? 'pointer' : 'default')};
 `;
 
-function Dropdown({ setSelectedMenuState }) {
+export default function Dropdown({ setSelectedMenuState }) {
   const [view, setView] = useState(false);
   const [dropDownState, setDropDownState] = useState('최신순');
   const [isClicked, setIsClicked] = useState(false);
@@ -85,23 +85,21 @@ function Dropdown({ setSelectedMenuState }) {
       {view && (
         <DropdownMenu>
           <span
-            onClick={sortBy('이름순')}
-            onKeyDown={sortBy('이름순')}
-            role="presentation"
-          >
-            <DropdownElement $dropDownState={dropDownState} $element="이름순" />
-          </span>
-          <span
             onClick={sortBy('최신순')}
             onKeyDown={sortBy('최신순')}
             role="presentation"
           >
             <DropdownElement $dropDownState={dropDownState} $element="최신순" />
           </span>
+          <span
+            onClick={sortBy('이름순')}
+            onKeyDown={sortBy('이름순')}
+            role="presentation"
+          >
+            <DropdownElement $dropDownState={dropDownState} $element="이름순" />
+          </span>
         </DropdownMenu>
       )}
     </Position>
   );
 }
-
-export default Dropdown;
