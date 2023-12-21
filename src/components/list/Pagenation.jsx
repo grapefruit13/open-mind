@@ -10,11 +10,12 @@ const Nums = styled.p`
   align-items: center;
   color: var(--Grayscale-40, #818181);
   font-size: 2rem;
-
+  font-weight: 400;
   ${props =>
     props.$active &&
     css`
       color: var(--Brown-40, #542f1a);
+      font-weight: 700;
     `}
 `;
 function Pagenation({
