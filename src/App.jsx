@@ -24,6 +24,7 @@ export default function App() {
                   <Route path="/list" element={<QuestionListPage />} />
                   <Route path="/post/:id" element={<QuestionFeedPage />} />
                   <Route path="/post/:id/answer" element={<AnswerPage />} />
+                  <Route path="*" element={<HomePage />} />
                 </Routes>
               </Suspense>
             </BrowserRouter>
