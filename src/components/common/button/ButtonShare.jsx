@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import { useContext } from 'react';
 import LinkIcon from '../../../assets/svgComponents/LinkIcon';
 import KakaoIcon from '../../../assets/svgComponents/KakaoIcon';
 import FacebookIcon from '../../../assets/svgComponents/FacebookIcon';
+import { ShareButtonContext } from '../../../utils/contexts/ShareButtonProvider';
 
 const Container = styled.div`
   cursor: pointer;
@@ -21,15 +23,19 @@ const Button = styled.button`
   padding: 0;
 `;
 
-function ButtonShare({ onClickIcon }) {
+function ButtonShare() {
+  const { setShareButtonClicked } = useContext(ShareButtonContext);
+
+  const handleSetTime = () => {
+    setShareButtonClicked(true);
+    setTimeout(() => {
+      setShareButtonClicked(false);
+    }, 5000);
+  };
+
   return (
     <Container>
-      <Button
-        type="button"
-        onClick={() => {
-          onClickIcon();
-        }}
-      >
+      <Button type="button" onClick={handleSetTime}>
         <LinkIcon />
       </Button>
       <Button type="button" disabled>
