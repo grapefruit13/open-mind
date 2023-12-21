@@ -242,6 +242,8 @@ function QuestionListPage() {
     };
   }, [pageWidth]);
 
+  useEffect(() => {}, [page]);
+
   useEffect(() => {
     const getListData = async (limit, offset, sort) => {
       const cardListData = await getDataByLimit(limit, offset, sort);
@@ -300,6 +302,7 @@ function QuestionListPage() {
         <Header>
           <Title>누구에게 질문할까요?</Title>
           <Dropdown
+            page={page}
             setSelectedMenuState={setSelectedMenuState}
             $isClicked={isClicked}
             onMouseEnter={handleMouseEnter}

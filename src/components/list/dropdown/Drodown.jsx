@@ -29,7 +29,7 @@ const Position = styled.div`
   cursor: ${({ $isClicked }) => ($isClicked ? 'pointer' : 'default')};
 `;
 
-export default function Dropdown({ setSelectedMenuState }) {
+export default function Dropdown({ page, setSelectedMenuState }) {
   const [view, setView] = useState(false);
   const [dropDownState, setDropDownState] = useState('최신순');
   const [isClicked, setIsClicked] = useState(false);
@@ -55,7 +55,9 @@ export default function Dropdown({ setSelectedMenuState }) {
       setView(false);
     };
   };
-
+  useEffect(() => {
+    setView(false);
+  }, [page]);
   useEffect(() => {
     if (dropDownState === '이름순') {
       setSelectedMenuState('name');
