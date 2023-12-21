@@ -268,9 +268,11 @@ function QuestionListPage() {
           <LogoAndLogout>
             <div style={{ width: '7.239rem' }} />
             <Logo width="14.6rem" height="5.7rem" />
-            <Link to="/">
-              <ButtonLogout small={isMobile} />
-            </Link>
+            <div style={{ width: '7.239rem' }}>
+              <Link to="/">
+                <ButtonLogout small={isMobile} />
+              </Link>
+            </div>
           </LogoAndLogout>
         ) : (
           <Logo width="14.6rem" height="5.7rem" />
@@ -278,14 +280,14 @@ function QuestionListPage() {
         <LogoutContainer>
           {userId ? (
             <Link to={`/post/${userId}/answer`}>
-              <ButtonBox outline="outline">
+              <ButtonBox small={isMobile} outline="outline">
                 답변하러 가기
                 <ArrowRight />
               </ButtonBox>
             </Link>
           ) : (
             <Link to="/">
-              <ButtonBox outline="outline">
+              <ButtonBox small={isMobile} outline="outline">
                 답변하러 가기
                 <ArrowRight />
               </ButtonBox>
