@@ -22,6 +22,10 @@ const Container = styled.div`
   border-radius: 16px;
   background: var(--grayscale-10);
   box-shadow: var(--shadow-1pt);
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export default function FeedCard({ question }) {

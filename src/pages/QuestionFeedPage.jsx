@@ -13,6 +13,7 @@ import { ShareButtonContext } from '../utils/contexts/ShareButtonProvider';
 
 const Container = styled.div`
   width: 100%;
+  padding: 0 2.4rem 2.4rem;
 `;
 
 const ContentsWrapper = styled.div`
@@ -21,17 +22,14 @@ const ContentsWrapper = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    padding: 0 3.2rem;
   }
-  @media (max-width: 375px) {
-    padding: 0 2.4rem;
+  @media (min-width: 376px) and (max-width: 767px) {
+    padding: 0 0.8rem;
   }
 `;
 
 const ButtonWrapper = styled.div`
-  position: relative;
-  top: 5.8rem;
-  left: 21.8rem;
+  width: 20.8rem;
 
   @media (min-width: 769px) {
     width: 20.8rem;
@@ -39,6 +37,11 @@ const ButtonWrapper = styled.div`
   @media (max-width: 768px) {
     width: 12.3rem;
   }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 export default function QuestionFeedPage() {
@@ -97,6 +100,8 @@ export default function QuestionFeedPage() {
       />
       <ContentsWrapper>
         <FeedCardContainer />
+      </ContentsWrapper>
+      <ButtonContainer>
         <ButtonWrapper onClick={() => setIsOpendModal(prev => !prev)}>
           {buttonFloatingState ? (
             <ButtonFloating>질문 작성하기</ButtonFloating>
@@ -104,7 +109,7 @@ export default function QuestionFeedPage() {
             <ButtonFloating>질문 작성</ButtonFloating>
           )}
         </ButtonWrapper>
-      </ContentsWrapper>
+      </ButtonContainer>
       {isOpenedModal && <Modal user={user} handleModal={handleModal} />}
       <ToastPortal>{shareButtonClicked && <Toast />}</ToastPortal>
     </Container>

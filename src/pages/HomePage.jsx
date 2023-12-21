@@ -5,8 +5,9 @@ import styled, { css } from 'styled-components';
 import logo from '../../public/assets/logo.svg';
 import ButtonBox from '../components/common/button/ButtonBox';
 import ArrowRight from '../assets/svgComponents/ArrowRight';
-import talkBg from '../../public/assets/talkpeople.png';
-import background from '../../public/assets/background.jpeg';
+import backgroundPc from '../../public/assets/backgroundPc.svg';
+import backgroundTablet from '../../public/assets/backgroundTablet.svg';
+import backgroundMobile from '../../public/assets/backgroundMobile.svg';
 import InputField from '../components/home/InputField';
 // import useAxios from '../hooks/useAxios';
 import { SUBJECT_URL } from '../utils/constants/apiUrl';
@@ -14,13 +15,19 @@ import ButtonLogout from '../components/common/button/ButtonLogout';
 
 const Wrapper = styled.div`
   height: 100vh;
-  background-image: url(${talkBg}), url(${background});
-  background-size: contain, cover;
-  background-position:
-    center bottom,
-    center;
+  background-image: url(${backgroundPc});
+  background-size: cover;
+  background-position: center bottom;
   background-repeat: no-repeat;
   overflow: hidden;
+
+  @media (max-width: 1199px) and (min-width: 769px) {
+    background-image: url(${backgroundTablet});
+  }
+
+  @media (max-width: 768px) {
+    background-image: url(${backgroundMobile});
+  }
 `;
 
 const WrapperGrid = styled.div`

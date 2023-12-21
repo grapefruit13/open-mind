@@ -14,6 +14,10 @@ const Container = styled.div`
   border-radius: 1.6rem;
   border: 1px solid var(--brown-30);
   background: var(--brown-10);
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const CountQuestion = styled.div`
