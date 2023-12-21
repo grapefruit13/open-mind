@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
-// Define your styled components
 const ToastAlert = styled.div`
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%);
+  top: 70rem;
   width: 16.7rem;
   height: 4.2rem;
   padding: 1.2rem 0;
@@ -18,12 +21,10 @@ const ToastAlert = styled.div`
   }
 `;
 
-export function ToastNotification() {
+export default function ToastNotification() {
   return (
     <ToastAlert>
       <p>url이 복사되었습니다!</p>
     </ToastAlert>
   );
 }
-
-export default ToastNotification;
