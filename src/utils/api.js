@@ -36,16 +36,6 @@ export async function getQuestionsData(url) {
   }
 }
 
-// 답변 하나 조회 (답변 추가,수정,삭제,거절 이후에 바로 실행)
-export async function getAnswer(url, answerId) {
-  try {
-    const response = await axios.get(`${url}${answerId}/`);
-    return response.data;
-  } catch (e) {
-    throw Error(`getAnswer ${e} 발생`);
-  }
-}
-
 // 답변 추가
 export async function postAnswer(url, questionId, content, isRejected) {
   try {

@@ -31,12 +31,10 @@ const StyledBadge = styled.div`
     font-weight: 500;
 `;
 
-function ModalBadge({ badgeText }) {
+export default function ModalBadge({ badgeText }) {
   return (
     <StyledBadge badgeText={badgeText}>
       <p>{badgeText}</p>
     </StyledBadge>
   );
 }
-
-export default ModalBadge;

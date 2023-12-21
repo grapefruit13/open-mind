@@ -8,7 +8,7 @@ import Devider from './Devider';
 import ReactionButtons from '../ReactionButtons';
 import KebabDropdown from './KebabDropdown';
 import { deleteQuestion, postAnswer, putAnswer } from '../../../utils/api';
-import FeedCardContext from '../../../utils/contexts/FeedCardProvider';
+import { FeedCardContext } from '../../../utils/contexts/FeedCardProvider';
 import calCreatedAt from '../../../utils/calCreatedDate';
 import { QuestionsContext } from '../../../utils/contexts/QuestionsProvider';
 
