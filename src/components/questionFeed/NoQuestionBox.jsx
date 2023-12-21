@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Message from '../../assets/svgComponents/Message';
-import emptyBox from '../../../public/assets/emptyBox.svg';
+import EmptyBox from '../../assets/svgComponents/EmptyBox';
 
 const Container = styled.div`
   width: 71.6rem;
@@ -43,16 +43,6 @@ const TextContainer = styled.p`
   }
 `;
 
-const EmptyBoxImg = styled.img`
-  width: 15rem;
-  height: 15.4rem;
-
-  @media (max-width: 375px) {
-    width: 11.4rem;
-    height: 11.8rem;
-  }
-`;
-
 function NoQuestionBox() {
   return (
     <Container>
@@ -60,7 +50,7 @@ function NoQuestionBox() {
         <Message size="2.4rem" color="#542F1A" />
         <TextContainer>아직 질문이 없습니다</TextContainer>
       </Flex>
-      <EmptyBoxImg src={emptyBox} />
+      <EmptyBox />
     </Container>
   );
 }

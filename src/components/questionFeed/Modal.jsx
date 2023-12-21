@@ -12,6 +12,7 @@ import { UserContext } from '../../utils/contexts/UserProvider';
 
 const StyledModal = styled.div`
   position: fixed;
+  left: 0;
   top: 0px;
   width: 100%;
   height: 100vh;
@@ -34,7 +35,7 @@ const StyledPopup = styled.div`
   background: var(--grayscale-10, #fff);
   box-shadow: 0px 16px 20px 0px rgba(48, 48, 48, 0.62);
 
-  @media (max-width: 375px) {
+  @media (max-width: 767px) {
     width: 32.7rem;
     height: 56.8rem;
     padding: 2.4rem;
@@ -90,13 +91,16 @@ const RecipientContainer = styled.div`
 
 const InputTextareaWrapper = styled.div`
   margin: 1.2rem 0 0.8rem;
-  height: 100%;
+  height: 14.8rem;
 
-  @media (max-width: 375px) {
-    margin: 1.5rem 0 0.8rem;
+  @media (max-width: 767px) {
+    height: 32.2rem;
   }
 `;
 
+const ButtonBoxWrappr = styled.div`
+  margin-top: auto;
+`;
 export default function Modal({ handleModal }) {
   const [inputValue, setInputValue] = useState('');
   const { handleQuestionsData } = useContext(QuestionsContext);
@@ -141,14 +145,16 @@ export default function Modal({ handleModal }) {
         </RecipientContainer>
         <InputTextareaWrapper>
           <InputTextarea
-            height="14.8rem"
+            height="100%"
             type="질문"
             onChangeInput={handleInputChange}
           />
         </InputTextareaWrapper>
-        <ButtonBox disabled={!inputValue} onClickButton={handleSubmitButton}>
-          질문 보내기
-        </ButtonBox>
+        <ButtonBoxWrappr>
+          <ButtonBox disabled={!inputValue} onClickButton={handleSubmitButton}>
+            질문 보내기
+          </ButtonBox>
+        </ButtonBoxWrappr>
       </StyledPopup>
     </StyledModal>
   );
