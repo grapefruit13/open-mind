@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled, { css } from 'styled-components';
-import logo from '../../public/assets/logo.svg';
+import Logo from '../components/common/Logo';
 import ButtonBox from '../components/common/button/ButtonBox';
 import ArrowRight from '../assets/svgComponents/ArrowRight';
 import backgroundPc from '../../public/assets/backgroundPc.svg';
 import backgroundTablet from '../../public/assets/backgroundTablet.svg';
 import backgroundMobile from '../../public/assets/backgroundMobile.svg';
 import InputField from '../components/home/InputField';
-// import useAxios from '../hooks/useAxios';
 import { SUBJECT_URL } from '../utils/constants/apiUrl';
 import ButtonLogout from '../components/common/button/ButtonLogout';
 
@@ -73,8 +72,9 @@ const Container = styled.div`
       align-self: end;
     `}
 `;
-const LogoImage = styled.img`
-  display: block;
+const LogoImageContainer = styled.div`
+  width: 456px;
+  height: 180px;
   margin: 6.9rem auto 2.4rem;
   grid-area: logo;
 
@@ -84,7 +84,7 @@ const LogoImage = styled.img`
   }
 
   @media (max-width: 767px) {
-    width: 24rem;
+    width: 24.8rem;
     height: 9.8rem;
     margin: 8rem auto 0;
   }
@@ -166,7 +166,9 @@ export default function HomePage() {
           </Link>
           {!isSmallScreen && <ButtonLogout />}
         </ButtonWrapper>
-        <LogoImage src={logo} alt="Logo" />
+        <LogoImageContainer>
+          <Logo width="100%" height="100%" />
+        </LogoImageContainer>
         <UserInfoContainer>
           <InputField onChangeUserNameInput={handleUserNameInput} />
           <ButtonBox onClickButton={handleQuestionButton}>질문 하기</ButtonBox>
