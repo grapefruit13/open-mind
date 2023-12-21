@@ -6,13 +6,11 @@ import ButtonBox from '../components/common/button/ButtonBox';
 import Dropdown from '../components/list/dropdown/Drodown';
 import UserCard from '../components/list/UserCard';
 import ArrowRight from '../assets/svgComponents/ArrowRight';
-import logo from '../../public/assets/logo.svg';
+import Logo from '../components/common/Logo';
 import Pagenation from '../components/list/Pagenation';
 
-const Container = styled.div`
-  height: 100vh;
-  background: var(--Grayscale-20, #f9f9f9);
-`;
+const Container = styled.div``;
+
 const Nav = styled.div`
   max-width: 120rem;
   margin: 0 auto;
@@ -30,10 +28,10 @@ const Nav = styled.div`
   }
 `;
 
-const Logo = styled.img`
-  width: 14.6rem;
-  height: 5.7rem;
-`;
+// const Logo = styled.img`
+//   width: 14.6rem;
+//   height: 5.7rem;
+// `;
 
 const ButtonSizingDiv = styled.div`
   width: 16.3rem;
@@ -116,7 +114,6 @@ const CardsContainer = styled.div`
 
 const PageNationContainer = styled.div`
   display: inline-flex;
-
   text-align: center;
   font-feature-settings:
     'clig' off,
@@ -241,7 +238,7 @@ function QuestionListPage() {
   return (
     <Container>
       <Nav>
-        <Logo src={logo} />
+        <Logo width="14.6rem" height="5.7rem" />
         <ButtonSizingDiv>
           {userId ? (
             <Link to={`/post/${userId}/answer`}>
