@@ -7,6 +7,9 @@ import ButtonFloating from '../components/common/button/ButtonFloating';
 import Modal from '../components/questionFeed/Modal';
 import { UserContext } from '../utils/contexts/UserProvider';
 import { QuestionsContext } from '../utils/contexts/QuestionsProvider';
+import ToastPortal from '../components/common/ToastPortal';
+import Toast from '../components/common/Toast';
+import { ShareButtonContext } from '../utils/contexts/ShareButtonProvider';
 
 const Container = styled.div`
   width: 100%;
@@ -45,6 +48,7 @@ export default function QuestionFeedPage() {
 
   const { user, handleUserData } = useContext(UserContext);
   const { handleQuestionsData } = useContext(QuestionsContext);
+  const { shareButtonClicked } = useContext(ShareButtonContext);
 
   const params = useParams();
   const subjectId = params.id;
@@ -102,6 +106,7 @@ export default function QuestionFeedPage() {
         </ButtonWrapper>
       </ContentsWrapper>
       {isOpenedModal && <Modal user={user} handleModal={handleModal} />}
+      <ToastPortal>{shareButtonClicked && <Toast />}</ToastPortal>
     </Container>
   );
 }
