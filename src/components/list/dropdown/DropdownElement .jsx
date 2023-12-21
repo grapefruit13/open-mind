@@ -1,27 +1,25 @@
 import styled from 'styled-components';
 
 const selectedStyle = `
-color: var(--blue-50, #1877F2);
+color: var(--blue-50);
 `;
 
 const StyledElement = styled.p`
-  color: var(--grayscale-50, #515151);
+  color: var(--grayscale-50);
   font-feature-settings:
     'clig' off,
     'liga' off;
   font-size: 1.4rem;
-  font-style: normal;
-  font-weight: 500;
+  font-weight: 700;
+
   ${({ $dropDownState, $element }) =>
     $dropDownState === $element ? selectedStyle : ''}
 `;
 
-function DropdownElement({ $dropDownState, $element }) {
+export default function DropdownElement({ $dropDownState, $element }) {
   return (
     <StyledElement $dropDownState={$dropDownState} $element={$element}>
       {$element}
     </StyledElement>
   );
 }
-
-export default DropdownElement;
