@@ -4,11 +4,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import FeedCardContainer from '../components/common/feedCard/FeedCardContainer';
 import Header from '../components/common/header/Header';
 import ButtonFloating from '../components/common/button/ButtonFloating';
+import ToastPortal from '../components/common/ToastPortal';
+import Toast from '../components/common/Toast';
 import { deleteAllQuestion } from '../utils/api';
 import { QuestionsContext } from '../utils/contexts/QuestionsProvider';
 import { UserContext } from '../utils/contexts/UserProvider';
-import ToastPortal from '../components/common/ToastPortal';
-import Toast from '../components/common/Toast';
 import { ShareButtonContext } from '../utils/contexts/ShareButtonProvider';
 
 const Container = styled.div`

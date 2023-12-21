@@ -23,7 +23,7 @@ const Button = styled.button`
   padding: 0;
 `;
 
-function ButtonShare() {
+export default function ButtonShare() {
   const { setShareButtonClicked } = useContext(ShareButtonContext);
 
   const handleSetTime = () => {
@@ -47,5 +47,3 @@ function ButtonShare() {
     </Container>
   );
 }
-
-export default ButtonShare;

@@ -27,7 +27,6 @@ const Selected = styled.div`
     'clig' off,
     'liga' off;
   font-size: 1.4rem;
-  font-style: normal;
   font-weight: 500;
   ${({ $selectedOrNot }) => ($selectedOrNot ? selected : notSelected)};
 `;

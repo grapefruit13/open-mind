@@ -32,8 +32,8 @@ const StyledPopup = styled.div`
   margin: auto;
   padding: 4rem 4rem 7rem;
   border-radius: 2.4rem;
-  background: var(--grayscale-10, #fff);
-  box-shadow: 0px 16px 20px 0px rgba(48, 48, 48, 0.62);
+  background: var(--grayscale-10);
+  box-shadow: var(--shadow-3pt);
 
   @media (max-width: 767px) {
     width: 32.7rem;
@@ -61,7 +61,7 @@ const PopupHeader = styled.div`
 
   p {
     margin-left: 0.8rem;
-    color: var(--grayscale-60, #000);
+    color: var(--grayscale-60);
     font-size: 2.4rem;
     line-height: 125%;
   }
@@ -79,12 +79,12 @@ const RecipientContainer = styled.div`
   margin-top: 4rem;
 
   span.sender {
-    color: var(--grayscale-60, #000);
+    color: var(--grayscale-60);
     font-size: 1.8rem;
   }
 
   span.userName {
-    color: var(--grayscale-60, #000);
+    color: var(--grayscale-60);
     font-size: 1.6rem;
   }
 `;
@@ -101,6 +101,7 @@ const InputTextareaWrapper = styled.div`
 const ButtonBoxWrappr = styled.div`
   margin-top: auto;
 `;
+
 export default function Modal({ handleModal }) {
   const [inputValue, setInputValue] = useState('');
   const { handleQuestionsData } = useContext(QuestionsContext);

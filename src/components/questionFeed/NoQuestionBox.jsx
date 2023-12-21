@@ -11,8 +11,8 @@ const Container = styled.div`
   align-items: center;
   gap: 7rem;
   border-radius: 16px;
-  border: 1px solid var(--Brown-20, #e4d5c9);
-  background: var(--Brown-10, #f5f1ee);
+  border: 1px solid var(--Brown-20);
+  background: var(--Brown-10);
 
   @media (max-width: 768px) {
     width: 100%;
@@ -30,12 +30,11 @@ const Flex = styled.div`
 `;
 
 const TextContainer = styled.p`
-  color: var(--Brown-40, #542f1a);
+  color: var(--Brown-40);
   font-feature-settings:
     'clig' off,
     'liga' off;
   font-size: 2rem;
-  font-style: normal;
   font-weight: 400;
 
   @media (max-width: 375px) {
@@ -43,7 +42,7 @@ const TextContainer = styled.p`
   }
 `;
 
-function NoQuestionBox() {
+export default function NoQuestionBox() {
   return (
     <Container>
       <Flex>
@@ -54,5 +53,3 @@ function NoQuestionBox() {
     </Container>
   );
 }
-
-export default NoQuestionBox;

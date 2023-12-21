@@ -22,7 +22,6 @@ const ReactionButton = styled.div`
     'clig' off,
     'liga' off;
   font-size: 1.4rem;
-  font-style: normal;
   font-weight: 500;
   line-height: 1.8rem;
 
@@ -39,7 +38,7 @@ const LikeButton = styled(ReactionButton)`
   ${props =>
     props.$isLike &&
     css`
-      color: var(--blue-50, #1877f2);
+      color: var(--blue-50);
     `}
 `;
 
@@ -47,13 +46,13 @@ const DislikeButton = styled(ReactionButton)`
   ${props =>
     props.$isDislike &&
     css`
-      color: var(--grayscale-60, #000);
+      color: var(--grayscale-60);
     `}
 `;
 
 const Counter = styled.div``;
 
-function ReactionButtons({ question }) {
+export default function ReactionButtons({ question }) {
   const [reactionState, setReactionState] = useState(
     localStorage.getItem(`${question.id}Of${question.subjectId}`),
   );
@@ -120,5 +119,3 @@ function ReactionButtons({ question }) {
     </Container>
   );
 }
-
-export default ReactionButtons;

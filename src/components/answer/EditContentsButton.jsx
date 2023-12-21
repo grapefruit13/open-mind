@@ -19,12 +19,14 @@ const EditButton = styled.button`
   line-height: 1.4rem;
   margin: 0rem;
   color: var(--grayscale-50, #515151);
+
   ${props =>
     props.$isHovered &&
     css`
       color: ${props.color};
       background: var(--grayscale-20, #f9f9f9);
     `}
+
   ${props =>
     props.$isActive &&
     css`
@@ -39,10 +41,14 @@ const ButtonLabel = styled.div`
   gap: 0.8rem;
 `;
 
-function EditContentsButton() {
+export default function EditContentsButton() {
   const [isHovered, setIsHovered] = useState(false);
   const [buttonActive, setButtonActive] = useState(false);
   const [colors, setColors] = useState('#515151');
+
+  const handleButtonActive = () => {
+    setButtonActive(!buttonActive);
+  };
 
   useEffect(() => {
     if (buttonActive) {
@@ -53,10 +59,6 @@ function EditContentsButton() {
       setColors('#515151');
     }
   }, [buttonActive, isHovered]);
-
-  const handleButtonActive = () => {
-    setButtonActive(!buttonActive);
-  };
 
   return (
     <EditButton
@@ -74,5 +76,3 @@ function EditContentsButton() {
     </EditButton>
   );
 }
-
-export default EditContentsButton;

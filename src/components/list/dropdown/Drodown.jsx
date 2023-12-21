@@ -11,7 +11,7 @@ const DropdownMenu = styled.section`
   left: 0;
   border: 1px solid var(--grayscale-30);
   border-radius: 0.8rem;
-  background: var(--grayscale-10, #fff);
+  background: var(--grayscale-10);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,9 +55,11 @@ export default function Dropdown({ page, setSelectedMenuState }) {
       setView(false);
     };
   };
+
   useEffect(() => {
     setView(false);
   }, [page]);
+
   useEffect(() => {
     if (dropDownState === '이름순') {
       setSelectedMenuState('name');

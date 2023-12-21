@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ButtonBox from './ButtonBox';
 
-const ButtonLogoutContainer = styled.div``;
+const Container = styled.div``;
 
 export default function ButtonLogout({ small }) {
   const [isLogined, setIsLogined] = useState(false);
@@ -22,12 +22,12 @@ export default function ButtonLogout({ small }) {
   }, []);
 
   return (
-    <ButtonLogoutContainer>
+    <Container>
       {isLogined && (
         <ButtonBox small={small} onClickButton={handleLogout}>
           로그아웃
         </ButtonBox>
       )}
-    </ButtonLogoutContainer>
+    </Container>
   );
 }

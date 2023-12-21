@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import FeedCardContext from '../../../utils/contexts/FeedCardProvider';
+import { FeedCardContext } from '../../../utils/contexts/FeedCardProvider';
 
 const Button = styled.button`
   color: var(--Grayscale-50);

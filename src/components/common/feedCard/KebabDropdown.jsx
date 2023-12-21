@@ -3,8 +3,8 @@ import KebabDropdownButton from './KebabDropdownButton';
 
 const Container = styled.div`
   display: flex;
-  width: 103px;
-  padding: 4px 0px;
+  width: 10.3rem;
+  padding: 0.5rem 0;
   flex-direction: column;
   justify-content: center;
   align-items: center;

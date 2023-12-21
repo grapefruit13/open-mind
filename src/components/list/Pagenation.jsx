@@ -11,6 +11,7 @@ const Nums = styled.p`
   color: var(--Grayscale-40, #818181);
   font-size: 2rem;
   font-weight: 400;
+
   ${props =>
     props.$active &&
     css`
@@ -26,6 +27,7 @@ function Pagenation({
   page,
 }) {
   const [arrayNum, setArrayNum] = useState(0);
+
   useEffect(() => {
     if (currentPageBlock === totalPageBlock - 1) {
       if (totalPage % 5 === 0) {

@@ -20,7 +20,6 @@ export default function UserProfile({ userName, userProfileImg }) {
 
   const handleCopyClipBoard = async text => {
     if (!shareIconClicked) return;
-    // console.log('복사');
     try {
       await navigator.clipboard.writeText(text);
     } catch (e) {

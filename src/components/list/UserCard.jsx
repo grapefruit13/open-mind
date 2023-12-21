@@ -76,7 +76,7 @@ const StyledUserCard = styled.div`
   }
 `;
 
-function UserCard({ imgSrc, userName, questions }) {
+export default function UserCard({ imgSrc, userName, questions }) {
   return (
     <StyledUserCard>
       <img className="user-profile" src={imgSrc} alt="User" />
@@ -89,5 +89,3 @@ function UserCard({ imgSrc, userName, questions }) {
     </StyledUserCard>
   );
 }
-
-export default UserCard;

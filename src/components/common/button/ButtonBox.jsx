@@ -1,35 +1,31 @@
-// import { useState } from 'react';
 import styled, { css } from 'styled-components';
 
 const StyledButton = styled.button`
   border: 0;
   outline: 0;
   cursor: pointer;
-  // layout
   display: inline-flex;
   padding: 1.2rem 2.4rem;
   justify-content: center;
   align-items: center;
   gap: 0.8rem;
   border-radius: 8px;
-  background: var(--brown-40, #542f1a);
-  // font
-  color: var(--grayscale-10, #fff);
+  background: var(--brown-40);
+  color: var(--grayscale-10);
   font-feature-settings:
     'clig' off,
     'liga' off;
   font-size: 1.6rem;
-  font-style: normal;
   font-weight: 400;
   line-height: 2.2rem;
 
   &:hover {
-    background: var(--brown-40, #542f1a);
-    box-shadow: 0 0 0 2px var(--brown-50, #341909);
+    background: var(--brown-40);
+    box-shadow: 0 0 0 2px var(--brown-50);
   }
 
   &:active {
-    background: var(--brown-50, #341909);
+    background: var(--brown-50);
   }
 
   &:disabled {
@@ -39,24 +35,24 @@ const StyledButton = styled.button`
 
   &:disabled:hover,
   &:disabled:active {
-    background: var(--brown-40, #542f1a);
+    background: var(--brown-40);
   }
 
   ${props =>
     props.$outline &&
     css`
-      border: 1px solid var(--brown-40, #542f1a);
-      background: var(--brown-10, #f5f1ee);
-      color: var(--brown-40, #542f1a);
+      border: 1px solid var(--brown-40);
+      background: var(--brown-10);
+      color: var(--brown-40);
 
       &:hover {
-        box-shadow: 0 0 0 2px var(--brown-50, #341909);
-        background: var(--brown-10, #f5f1ee);
+        box-shadow: 0 0 0 2px var(--brown-50);
+        background: var(--brown-10);
       }
 
       &:active {
-        box-shadow: 0 0 0 2px var(--brown-40, #542f1a);
-        background: var(--brown-20, #e4d5c9);
+        box-shadow: 0 0 0 2px var(--brown-40);
+        background: var(--brown-20);
       }
 
       &:disabled:hover,
@@ -69,10 +65,9 @@ const StyledButton = styled.button`
   ${props =>
     props.$small &&
     css`
-      padding: 8px 12px;
-      gap: 4px;
-      font-size: 14px;
-      font-style: normal;
+      padding: 0.8rem 1.2rem;
+      gap: 0.4rem;
+      font-size: 1.4rem;
       font-weight: 400;
       line-height: 18px;
     `}

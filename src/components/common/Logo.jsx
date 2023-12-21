@@ -10,10 +10,8 @@ export default function Logo({ width, height }) {
   const loginedUser = JSON.parse(localStorage.getItem('userData'));
 
   const navigate = useNavigate();
-  // console.log(loginedUser);
 
   const handleRedirect = () => {
-    // console.log(loginedUser);
     if (loginedUser) navigate('/list');
     else navigate('/');
   };

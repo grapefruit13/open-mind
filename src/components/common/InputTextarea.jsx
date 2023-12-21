@@ -14,7 +14,7 @@ const Div = styled.div`
   background: var(--grayscale-20);
 
   &:focus-within {
-    box-shadow: 0 0 0 1px var(--brown-40, #542f1a);
+    box-shadow: 0 0 0 1px var(--brown-40);
   }
 `;
 

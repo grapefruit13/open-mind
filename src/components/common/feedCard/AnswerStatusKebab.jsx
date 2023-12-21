@@ -1,4 +1,3 @@
-// import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import Badge from '../Badge';
@@ -35,7 +34,6 @@ export default function AnswerStatusKebab({ path, answer, onClickKebab }) {
   return (
     <Container>
       {!answer ? <Badge badgeText="미답변" /> : <Badge badgeText="답변 완료" />}
-
       {path === 'answer' && (
         <Button onClick={handleKebabClick}>
           <More />
