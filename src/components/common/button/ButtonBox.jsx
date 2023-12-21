@@ -18,6 +18,7 @@ const StyledButton = styled.button`
   font-size: 1.6rem;
   font-weight: 400;
   line-height: 2.2rem;
+  white-space: nowrap;
 
   &:hover {
     background: var(--brown-40);

@@ -24,7 +24,7 @@ const ToastAlert = styled.div`
 export default function ToastNotification() {
   return (
     <ToastAlert>
-      <p>url이 복사되었습니다!</p>
+      <p>URL이 복사되었습니다</p>
     </ToastAlert>
   );
 }
