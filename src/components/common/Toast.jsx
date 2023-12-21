@@ -4,7 +4,7 @@ const ToastAlert = styled.div`
   position: fixed;
   left: 50%;
   transform: translate(-50%);
-  top: 70rem;
+  bottom: 6rem;
   width: 16.7rem;
   height: 4.2rem;
   padding: 1.2rem 0;
