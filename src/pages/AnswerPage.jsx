@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import FeedCardContainer from '../components/common/feedCard/FeedCardContainer';
 import Header from '../components/common/header/Header';
 import ButtonFloating from '../components/common/button/ButtonFloating';
@@ -35,7 +35,17 @@ export default function AnswerPage() {
   const params = useParams();
   const subjectId = params.id;
 
+  const navigate = useNavigate();
+
   useEffect(() => {
+    const loginedUser = JSON.parse(localStorage.getItem('userData'));
+
+    if (loginedUser) {
+      if (subjectId !== loginedUser.id.toString()) {
+        navigate(`/post/${subjectId}/`);
+      }
+    }
+
     handleQuestionsData(subjectId);
     handleUserData(subjectId);
   }, []);

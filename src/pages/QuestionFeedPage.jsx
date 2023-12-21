@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../components/common/header/Header';
 import FeedCardContainer from '../components/common/feedCard/FeedCardContainer';
@@ -40,30 +40,37 @@ const ButtonWrapper = styled.div`
 
 export default function QuestionFeedPage() {
   const [isOpenedModal, setIsOpendModal] = useState(false);
+  const [pageWidth, setPageWidth] = useState(window.innerWidth);
+  const [buttonFloatingState, setButtonFloatingState] = useState(true);
 
   const { user, handleUserData } = useContext(UserContext);
   const { handleQuestionsData } = useContext(QuestionsContext);
 
   const params = useParams();
   const subjectId = params.id;
-  const [pageWidth, setPageWidth] = useState(window.innerWidth);
-  const [buttonFloatingState, setButtonFloatingState] = useState(true);
+
+  const navigate = useNavigate();
+
   const handleSize = () => {
     setPageWidth(window.innerWidth);
   };
 
-  useEffect(() => {
-    handleQuestionsData(subjectId);
-  }, []);
-
-  useEffect(() => {
-    handleUserData(subjectId);
-    // }, [handleUserData, subjectId]);
-  }, []);
-
   const handleModal = () => {
     setIsOpendModal(prev => !prev);
   };
+
+  useEffect(() => {
+    const loginedUser = JSON.parse(localStorage.getItem('userData'));
+
+    if (loginedUser) {
+      if (subjectId === loginedUser.id.toString()) {
+        navigate(`/post/${subjectId}/answer`);
+      }
+    }
+
+    handleUserData(subjectId);
+    handleQuestionsData(subjectId);
+  }, []);
 
   useEffect(() => {
     window.addEventListener('resize', handleSize);

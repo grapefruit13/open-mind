@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import Logo from '../../../assets/svgComponents/Logo';
+import Logo from '../Logo';
 import UserProfileImg from '../userInfo/UserProfileImg';
 import UserName from '../userInfo/UserName';
 import ButtonShare from '../button/ButtonShare';
@@ -20,7 +20,7 @@ export default function UserProfile({ userName, userProfileImg }) {
 
   const handleCopyClipBoard = async text => {
     if (!shareIconClicked) return;
-    console.log('복사');
+    // console.log('복사');
     try {
       await navigator.clipboard.writeText(text);
     } catch (e) {
@@ -37,7 +37,7 @@ export default function UserProfile({ userName, userProfileImg }) {
 
   return (
     <Container>
-      <Logo />
+      <Logo width="17rem" height="6.7rem" />
       <UserProfileImg
         src={userProfileImg}
         size="13.6rem"
